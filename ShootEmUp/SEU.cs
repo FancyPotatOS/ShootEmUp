@@ -1,7 +1,7 @@
-﻿using Microsoft.Xna.Framework;
+﻿using ControlsHandler;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using ShootEmUp.ControlHandler;
 using ShootEmUp.Entities;
 using ShootEmUp.Hitboxes;
 using ShootEmUp.States;
@@ -28,6 +28,12 @@ namespace ShootEmUp
         // List of newly pressed keys
         public List<Keys> newKeys;
 
+        /*  Control Handler */
+        Texture2D controls_handler_gui;
+        Texture2D[] udlr;
+        bool hasConnected = false;
+        IController playerCont;
+
         public SEU()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -41,8 +47,10 @@ namespace ShootEmUp
 
             instance = this;
 
+            playerCont = new KeyboardController();
+
             HurtBox hb = new HurtBox(new float[] { -30, -30 }, new float[] { 100, 100 }, new float[] { 60, 60 });
-            Player player = new Player(new KeyboardController(), hb);
+            Player player = new Player(playerCont, hb);
 
             // Where player collision is
             player.blocking.Add(CollisionBox.FromHitbox(new Hitbox(new float[] { -25, -25 }, new float[] { 250, 250 }, new float[] { 50, 50 })));
@@ -63,6 +71,11 @@ namespace ShootEmUp
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            // NECESSARY
+            controls_handler_gui = Content.Load<Texture2D>("controls_handler_gui");
+            // SYMBOLS ASSIGNED TO EACH CONTROL
+            udlr = new Texture2D[] { Content.Load<Texture2D>("up"), Content.Load<Texture2D>("down"), Content.Load<Texture2D>("left"), Content.Load<Texture2D>("right") };
+
             // TODO: use this.Content to load your game content here
         }
 
@@ -80,6 +93,22 @@ namespace ShootEmUp
             if (newKeys.Contains(Keys.Q))
                 Exit();
 
+            // Attempt controls
+            if (!hasConnected)
+            {
+                bool finished = IController.Connect(new IController[] { playerCont }, new string[] { "up", "down", "left", "right" });
+
+                if (finished)
+                {
+                    hasConnected = true;
+                }
+                else
+                {
+                    base.Update(gameTime);
+                    return;
+                }
+            }
+
             GLOBALSTATE.Update();
 
             base.Update(gameTime);
@@ -87,7 +116,29 @@ namespace ShootEmUp
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.CornflowerBlue); 
+            
+            if (!hasConnected)
+            {
+                GraphicsDevice.Clear(Color.CornflowerBlue);
+
+                _spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.LinearWrap, null, null, null, null);
+
+                foreach (ToDraw td in IController.GetDrawing(this, new IController[] { playerCont }, controls_handler_gui, udlr))
+                {
+                    Texture2D tex = td.tex;
+                    Rectangle bound = td.bound;
+                    Color color = td.color;
+
+                    _spriteBatch.Draw(tex, bound, color);
+                }
+
+                _spriteBatch.End();
+
+                base.Draw(gameTime);
+
+                return;
+            }
 
             List<TextureDescription> liszt = GLOBALSTATE.GetTextures();
 

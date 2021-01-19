@@ -1,6 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using ControlsHandler;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ShootEmUp.ControlHandler;
 using ShootEmUp.Hitboxes;
 using ShootEmUp.TextureHandling;
 using System.Collections.Generic;
