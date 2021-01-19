@@ -1,4 +1,5 @@
 ﻿using ShootEmUp.Entities;
+using ShootEmUp.Hitboxes;
 using ShootEmUp.TextureHandling;
 using System;
 using System.Collections.Generic;
@@ -9,13 +10,24 @@ namespace ShootEmUp.States
 {
     class InGame : IState
     {
-        List<IEntity> entities;
+        readonly List<IEntity> entities;
+
+        readonly List<Hitbox> windowBorders;
 
         public InGame(Player player)
         {
             entities = new List<IEntity>();
             {
                 entities.Add(player);
+            }
+
+            int[] size = new int[] { SEU.instance.Window.ClientBounds.Width, SEU.instance.Window.ClientBounds.Height };
+            windowBorders = new List<Hitbox>();
+            {
+                windowBorders.Add(new Hitbox(new float[] { -1, -1 }, new float[] { 0, 0 }, new float[] { 1, 2 + size[1] }));
+                windowBorders.Add(new Hitbox(new float[] { -1, -1 }, new float[] { 0, 0 }, new float[] { 2 + size[0], 1 }));
+                windowBorders.Add(new Hitbox(new float[] { 0, -1 }, new float[] { size[0], 0 }, new float[] { 1, 2 + size[1] }));
+                windowBorders.Add(new Hitbox(new float[] { -1, 0 }, new float[] { 0, size[1] }, new float[] { 2 + size[0], 1 }));
             }
         }
 
@@ -43,6 +55,34 @@ namespace ShootEmUp.States
             td.OrderBy(val => val.layer);
 
             return td;
+        }
+
+        // Whether hitbox crosses anywhere
+        public Hitbox GetCrosses(Hitbox hb)
+        {
+            foreach (Hitbox hitbox in windowBorders)
+            {
+                if (hitbox.Crosses(hb))
+                {
+                    return hitbox;
+                }
+            }
+
+            return null;
+        }
+
+        // Whether hitbox crosses exclusively anywhere
+        public Hitbox GetCrossesEx(Hitbox hb)
+        {
+            foreach (Hitbox hitbox in windowBorders)
+            {
+                if (hitbox.CrossesExclusive(hb))
+                {
+                    return hitbox;
+                }
+            }
+
+            return null;
         }
     }
 }

@@ -1,8 +1,10 @@
 ﻿using ControlsHandler;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using ShootEmUp.Hitboxes;
 using ShootEmUp.TextureHandling;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -10,21 +12,28 @@ namespace ShootEmUp.Entities
 {
     class Player : IEntity
     {
-        Texture2D DEBUGbox;
+        // Constant of acceleration
+        public const float moveAcc = 0.375f;
+        public float friction;
 
-        IController controller;
+        public float[] speed;
+
+        public Texture2D DEBUGbox;
+
+        readonly IController controller;
 
         public HurtBox vulnerable;
-        public List<CollisionBox> blocking;
+        public CollisionBox blocking;
         public List<DamageBox> attacking;
 
         public Player(IController cont, HurtBox init)
         {
             controller = cont;
 
-            blocking = new List<CollisionBox>();
             attacking = new List<DamageBox>();
             vulnerable = init;
+            speed = new float[2];
+            friction = 0.984375f;
         }
 
         public void Update()
@@ -32,9 +41,59 @@ namespace ShootEmUp.Entities
             // Update controls
             controller.Update();
 
-            if (DEBUGbox == null)
+            if (controller.IsPressed("up"))
             {
-                DEBUGbox = SEU.instance.Content.Load<Texture2D>("box");
+                speed[1] = Math.Min(0, (speed[1] - moveAcc) * friction);
+            }
+            else if (controller.IsPressed("down"))
+            {
+                speed[1] = Math.Max(0, (speed[1] + moveAcc) * friction);
+            }
+            if (controller.IsPressed("left"))
+            {
+                speed[0] = Math.Min(0, (speed[0] - moveAcc) * friction);
+            }
+            else if (controller.IsPressed("right"))
+            {
+                speed[0] = Math.Max(0, (speed[0] + moveAcc) * friction);
+            }
+            speed[1] *= friction;
+            speed[0] *= friction;
+
+            if (Mouse.GetState().MiddleButton.HasFlag(ButtonState.Pressed))
+            {
+                { }
+            }
+
+            float[] sumChange = new float[2];
+            // Attempt to move X
+            Hitbox movedX = blocking.Copy();
+            movedX.pos[0] += speed[0];
+
+            // If not null, then crosses some hitbox
+            Hitbox crosses = SEU.instance.GLOBALSTATE.GetCrossesEx(movedX);
+            if (crosses != null)
+                sumChange[0] = crosses.ConnectX(blocking) - blocking.pos[0];
+            else
+                sumChange[0] = speed[0];
+
+            Hitbox movedY = blocking.Copy();
+            movedY.pos[1] += speed[1];
+
+            crosses = SEU.instance.GLOBALSTATE.GetCrossesEx(movedY);
+            if (crosses != null)
+                sumChange[1] = crosses.ConnectY(blocking) - blocking.pos[1];
+            else
+                sumChange[1] = speed[1];
+
+            blocking.pos[0] += sumChange[0];
+            blocking.pos[1] += sumChange[1];
+            vulnerable.pos[0] += sumChange[0];
+            vulnerable.pos[1] += sumChange[1];
+            foreach (DamageBox db in attacking)
+            {
+                db.pos[0] += sumChange[0];
+                db.pos[1] += sumChange[1];
             }
         }
 
@@ -47,13 +106,10 @@ namespace ShootEmUp.Entities
 
             td.Add(new TextureDescription(DEBUGbox, new Rectangle(pos, size), Color.Blue, 10));
 
-            foreach (CollisionBox cb in blocking)
-            {
-                pos = new Point((int)(cb.pos[0] + cb.offset[0]), (int)(cb.pos[1] + cb.offset[1]));
-                size = new Point((int)cb.size[0], (int)cb.size[1]);
+            pos = new Point((int)(blocking.pos[0] + blocking.offset[0]), (int)(blocking.pos[1] + blocking.offset[1]));
+            size = new Point((int)blocking.size[0], (int)blocking.size[1]);
 
-                td.Add(new TextureDescription(DEBUGbox, new Rectangle(pos, size), Color.Green, 11));
-            }
+            td.Add(new TextureDescription(DEBUGbox, new Rectangle(pos, size), Color.Green, 11));
 
             foreach (DamageBox db in attacking)
             {
@@ -68,7 +124,11 @@ namespace ShootEmUp.Entities
 
         public List<CollisionBox> GetCollisionHitboxes()
         {
-            return blocking;
+            List<CollisionBox> cbs = new List<CollisionBox>();
+            {
+                cbs.Add(blocking);
+            }
+            return cbs;
         }
 
         public List<DamageBox> GetDamageBoxes()

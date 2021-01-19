@@ -57,7 +57,7 @@ namespace ShootEmUp.Hitboxes
             else if (hb.pos[0] >= this.pos[0])
             {
                 float rightside = this.pos[0] + this.offset[0] + this.size[0];
-                return rightside + hb.offset[0];
+                return rightside - hb.offset[0];
             }
             // Hitbox is to the left of this
             else if (hb.pos[0] < this.pos[0])
@@ -82,7 +82,7 @@ namespace ShootEmUp.Hitboxes
             else if (hb.pos[1] >= this.pos[1])
             {
                 float upside = this.pos[1] + this.offset[1] + this.size[1];
-                return upside + hb.offset[1];
+                return upside - hb.offset[1];
             }
             // Hitbox is to the bottom of this
             else if (hb.pos[1] < this.pos[1])

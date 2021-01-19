@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace ShootEmUp.TextureHandling
 {
-    class TextureDescription
+    internal class TextureDescription
     {
         public readonly Texture2D tex;
         public readonly Rectangle bound;

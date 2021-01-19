@@ -21,6 +21,14 @@ Update:
 
     if (!hasConnected)
     {
+        // Attempted Exit from connecting
+        if (IController.IsExit())
+        {
+            hasConnected = true;
+            base.Update(gameTime);
+            return;
+        }
+
         bool finished = IController.Connect(new IController[] { p1, p2 }, new string[] { "up", "down", "left", "right" });
 
         if (finished)
