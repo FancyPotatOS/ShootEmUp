@@ -8,6 +8,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
+using CardsDevelopment;
+
 namespace ShootEmUp.Entities
 {
     class Player : IEntity
@@ -20,7 +22,7 @@ namespace ShootEmUp.Entities
 
         public Texture2D DEBUGbox;
 
-        readonly IController controller;
+        public IController controller;
 
         public HurtBox vulnerable;
         public CollisionBox blocking;
@@ -43,19 +45,27 @@ namespace ShootEmUp.Entities
 
             if (controller.IsPressed("up"))
             {
-                speed[1] = Math.Min(0, (speed[1] - moveAcc) * friction);
+                speed[1] = Math.Min(-speed[1] / 3, (speed[1] - moveAcc) * friction);
             }
             else if (controller.IsPressed("down"))
             {
-                speed[1] = Math.Max(0, (speed[1] + moveAcc) * friction);
+                speed[1] = Math.Max(-speed[1] / 3, (speed[1] + moveAcc) * friction);
+            }
+            else
+            {
+                speed[1] /= 1.25f;
             }
             if (controller.IsPressed("left"))
             {
-                speed[0] = Math.Min(0, (speed[0] - moveAcc) * friction);
+                speed[0] = Math.Min(-speed[0] / 3, (speed[0] - moveAcc) * friction);
             }
             else if (controller.IsPressed("right"))
             {
-                speed[0] = Math.Max(0, (speed[0] + moveAcc) * friction);
+                speed[0] = Math.Max(-speed[0] / 3, (speed[0] + moveAcc) * friction);
+            }
+            else
+            {
+                speed[0] /= 1.25f;
             }
             speed[1] *= friction;
             speed[0] *= friction;
@@ -109,14 +119,14 @@ namespace ShootEmUp.Entities
             pos = new Point((int)(blocking.pos[0] + blocking.offset[0]), (int)(blocking.pos[1] + blocking.offset[1]));
             size = new Point((int)blocking.size[0], (int)blocking.size[1]);
 
-            td.Add(new TextureDescription(DEBUGbox, new Rectangle(pos, size), Color.Green, 11));
+            td.Add(new TextureDescription(DEBUGbox, new Rectangle(pos, size), Color.Green, 9));
 
             foreach (DamageBox db in attacking)
             {
                 pos = new Point((int)(db.pos[0] + db.offset[0]), (int)(db.pos[1] + db.offset[1]));
                 size = new Point((int)db.size[0], (int)db.size[1]);
 
-                td.Add(new TextureDescription(DEBUGbox, new Rectangle(pos, size), Color.Red, 12));
+                td.Add(new TextureDescription(DEBUGbox, new Rectangle(pos, size), Color.Red, 8));
             }
 
             return td;

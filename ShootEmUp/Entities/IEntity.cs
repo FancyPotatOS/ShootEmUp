@@ -10,12 +10,13 @@ namespace ShootEmUp.Entities
     interface IEntity
     {
         void Update();
+
+        List<TextureDescription> GetTextures();
+
         List<CollisionBox> GetCollisionHitboxes();
 
         List<HurtBox> GetHurtboxes();
 
         List<DamageBox> GetDamageBoxes();
-
-        List<TextureDescription> GetTextures();
     }
 }

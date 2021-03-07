@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30621.155
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShootEmUp", "ShootEmUp\ShootEmUp.csproj", "{5A4B25A8-6162-4551-A14C-43D5A89F6CB1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShootEmUp", "ShootEmUp\ShootEmUp.csproj", "{5A4B25A8-6162-4551-A14C-43D5A89F6CB1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CardsDevelopment", "..\CardsDevelopment\CardsDevelopment\CardsDevelopment.csproj", "{38014322-2093-4810-8335-A21292360A82}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ControlsHandler", "..\ControlsHandler\ControlsHandler\ControlsHandler.csproj", "{F929E22B-CE1C-4E6D-8495-B51CBADBE7DC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{5A4B25A8-6162-4551-A14C-43D5A89F6CB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5A4B25A8-6162-4551-A14C-43D5A89F6CB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5A4B25A8-6162-4551-A14C-43D5A89F6CB1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38014322-2093-4810-8335-A21292360A82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38014322-2093-4810-8335-A21292360A82}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38014322-2093-4810-8335-A21292360A82}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38014322-2093-4810-8335-A21292360A82}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F929E22B-CE1C-4E6D-8495-B51CBADBE7DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F929E22B-CE1C-4E6D-8495-B51CBADBE7DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F929E22B-CE1C-4E6D-8495-B51CBADBE7DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F929E22B-CE1C-4E6D-8495-B51CBADBE7DC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

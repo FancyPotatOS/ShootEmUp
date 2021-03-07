@@ -6,6 +6,7 @@ using ShootEmUp.Entities;
 using ShootEmUp.Hitboxes;
 using ShootEmUp.States;
 using ShootEmUp.TextureHandling;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -20,6 +21,8 @@ namespace ShootEmUp
 
         internal IState GLOBALSTATE;
 
+        public bool isFullScreen = false;
+
         /*  Keyboard inputs */
         // List of accounted keys
         public List<Keys> accKeys;
@@ -29,10 +32,8 @@ namespace ShootEmUp
         public List<Keys> newKeys;
 
         /*  Control Handler */
-        Texture2D controls_handler_gui;
         Texture2D[] udlr;
         bool hasConnected = false;
-        readonly IController playerCont;
 
         readonly Player player;
 
@@ -49,18 +50,14 @@ namespace ShootEmUp
 
             instance = this;
 
-            playerCont = new KeyboardController();
-
             HurtBox hb = new HurtBox(new float[] { -30, -30 }, new float[] { 100, 100 }, new float[] { 60, 60 });
-            player = new Player(playerCont, hb)
+            player = new Player(null, hb)
             {
                 // Where player collision is
                 blocking = CollisionBox.FromHitbox(new Hitbox(new float[] { -25, -25 }, new float[] { 250, 250 }, new float[] { 50, 50 })),
 
-                vulnerable = new HurtBox(new float[] { -20, -20 }, new float[] { 250, 235 }, new float[] { 40, 40 })
+                vulnerable = new HurtBox(new float[] { -20, -20 }, new float[] { 250, 250 }, new float[] { 40, 40 })
             };
-
-            GLOBALSTATE = new InGame(player);
         }
 
         protected override void Initialize()
@@ -74,12 +71,21 @@ namespace ShootEmUp
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // NECESSARY
-            controls_handler_gui = Content.Load<Texture2D>("controls_handler_gui");
-            // SYMBOLS ASSIGNED TO EACH CONTROL
+            IController.Load(Content);
+
             udlr = new Texture2D[] { Content.Load<Texture2D>("up"), Content.Load<Texture2D>("down"), Content.Load<Texture2D>("left"), Content.Load<Texture2D>("right") };
 
             player.DEBUGbox = Content.Load<Texture2D>("box");
+
+            /** /
+            _graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+            _graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+            _graphics.IsFullScreen = true;
+            isFullScreen = true;
+            /**/
+            _graphics.ApplyChanges();
+
+            GLOBALSTATE = new InGame(player);
         }
 
         protected override void Update(GameTime gameTime)
@@ -119,11 +125,12 @@ namespace ShootEmUp
                     return;
                 }
 
-                bool finished = IController.Connect(new IController[] { playerCont }, new string[] { "up", "down", "left", "right" });
+                bool finished = IController.Connect(1, new string[] { "up", "down", "left", "right" });
 
                 if (finished)
                 {
                     hasConnected = true;
+                    player.controller = IController.controllersInOrder[0];
                 }
                 else
                 {
@@ -143,7 +150,7 @@ namespace ShootEmUp
 
             List<TextureDescription> liszt = GLOBALSTATE.GetTextures();
 
-            _spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.LinearWrap, null, null, null, null);
+            _spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointWrap, null, null, null, null);
 
             foreach (TextureDescription td in liszt)
             {
@@ -154,7 +161,7 @@ namespace ShootEmUp
             {
                 GraphicsDevice.Clear(Color.CornflowerBlue);
 
-                foreach (ToDraw td in IController.GetDrawing(this, new IController[] { playerCont }, controls_handler_gui, udlr))
+                foreach (ToDraw td in IController.GetDrawing(this, 1, udlr))
                 {
                     Texture2D tex = td.tex;
                     Rectangle bound = td.bound;
@@ -173,6 +180,28 @@ namespace ShootEmUp
             _spriteBatch.End();
 
             base.Draw(gameTime);
+        }
+
+        public static float[] NormalizeVector(float[] vec)
+        {
+            // Sum the square of each element
+            float sqSum = 0;
+            foreach (float element in vec)
+            {
+                sqSum += element * element;
+            }
+            // Square root to get distance
+            sqSum = (float)Math.Sqrt(sqSum);
+
+            // Divide all elements by distance
+            float[] newVector = new float[vec.Length];
+
+            for (int i = 0; i < vec.Length; i++)
+            {
+                newVector[i] = vec[i] / sqSum;
+            }
+
+            return newVector;
         }
     }
 }

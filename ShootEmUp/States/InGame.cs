@@ -1,4 +1,5 @@
-﻿using ShootEmUp.Entities;
+﻿using Microsoft.Xna.Framework.Graphics;
+using ShootEmUp.Entities;
 using ShootEmUp.Hitboxes;
 using ShootEmUp.TextureHandling;
 using System;
@@ -21,7 +22,16 @@ namespace ShootEmUp.States
                 entities.Add(player);
             }
 
-            int[] size = new int[] { SEU.instance.Window.ClientBounds.Width, SEU.instance.Window.ClientBounds.Height };
+            int[] size;
+            if (SEU.instance.isFullScreen)
+            { 
+                size = new int[] { GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height }; 
+            }
+            else
+            {
+                size = new int[] { SEU.instance.Window.ClientBounds.Width, SEU.instance.Window.ClientBounds.Height };
+            }
+
             windowBorders = new List<Hitbox>();
             {
                 windowBorders.Add(new Hitbox(new float[] { -1, -1 }, new float[] { 0, 0 }, new float[] { 1, 2 + size[1] }));
@@ -52,7 +62,7 @@ namespace ShootEmUp.States
             }
 
             // Order by layer
-            td.OrderBy(val => val.layer);
+            td = td.OrderBy(val => val.layer).ToList();
 
             return td;
         }
