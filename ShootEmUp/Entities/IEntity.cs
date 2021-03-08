@@ -7,7 +7,7 @@ using ShootEmUp.TextureHandling;
 
 namespace ShootEmUp.Entities
 {
-    interface IEntity
+    public interface IEntity
     {
         void Update();
 

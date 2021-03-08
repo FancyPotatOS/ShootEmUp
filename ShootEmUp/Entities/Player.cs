@@ -14,13 +14,15 @@ namespace ShootEmUp.Entities
 {
     class Player : IEntity
     {
+        Animation currAnimation;
+
         // Constant of acceleration
         public const float moveAcc = 0.375f;
         public float friction;
 
         public float[] speed;
 
-        public Texture2D DEBUGbox;
+        public static Texture2D DEBUGbox;
 
         public IController controller;
 
@@ -36,10 +38,17 @@ namespace ShootEmUp.Entities
             vulnerable = init;
             speed = new float[2];
             friction = 0.984375f;
+
+            currAnimation = new Animation(new int[] { 50, 100, 25, 75 }, new Texture2D[] { IController.emptySlot, IController.GUI, IController.keyGameUI[0], IController.keyGameUI[1] });
         }
 
         public void Update()
         {
+            // Update current animation
+            currAnimation.Update();
+            if (currAnimation.Expired())
+                currAnimation.Reset();
+
             // Update controls
             controller.Update();
 
@@ -76,6 +85,7 @@ namespace ShootEmUp.Entities
             }
 
             float[] sumChange = new float[2];
+
             // Attempt to move X
             Hitbox movedX = blocking.Copy();
             movedX.pos[0] += speed[0];
@@ -83,51 +93,67 @@ namespace ShootEmUp.Entities
             // If not null, then crosses some hitbox
             Hitbox crosses = SEU.instance.GLOBALSTATE.GetCrossesEx(movedX);
             if (crosses != null)
+            {
                 sumChange[0] = crosses.ConnectX(blocking) - blocking.pos[0];
+                speed[0] /= 1.10f;
+            }
             else
                 sumChange[0] = speed[0];
 
-            Hitbox movedY = blocking.Copy();
-            movedY.pos[1] += speed[1];
-
-            crosses = SEU.instance.GLOBALSTATE.GetCrossesEx(movedY);
-            if (crosses != null)
-                sumChange[1] = crosses.ConnectY(blocking) - blocking.pos[1];
-            else
-                sumChange[1] = speed[1];
-
+            // Update all X's hitboxes -> this means x will have 'precedence' in corner cases
             blocking.pos[0] += sumChange[0];
-            blocking.pos[1] += sumChange[1];
             vulnerable.pos[0] += sumChange[0];
-            vulnerable.pos[1] += sumChange[1];
             foreach (DamageBox db in attacking)
             {
                 db.pos[0] += sumChange[0];
+            }
+
+            // Attempt to move X
+            Hitbox movedY = blocking.Copy();
+            movedY.pos[1] += speed[1];
+
+            // If not null, then crosses some hitbox
+            crosses = SEU.instance.GLOBALSTATE.GetCrossesEx(movedY);
+            if (crosses != null)
+            {
+                sumChange[1] = crosses.ConnectY(blocking) - blocking.pos[1];
+                speed[1] /= 1.10f;
+            }
+            else
+                sumChange[1] = speed[1];
+
+            blocking.pos[1] += sumChange[1];
+            vulnerable.pos[1] += sumChange[1];
+            foreach (DamageBox db in attacking)
+            {
                 db.pos[1] += sumChange[1];
+            }
+
+            if (SEU.instance.GLOBALSTATE.GetCrossesEx(blocking) != null)
+            {
+                { }
             }
         }
 
         public List<TextureDescription> GetTextures()
         {
             List<TextureDescription> td = new List<TextureDescription>();
-            
-            Point pos = new Point((int)(vulnerable.pos[0] + vulnerable.offset[0]), (int)(vulnerable.pos[1] + vulnerable.offset[1]));
-            Point size = new Point((int)vulnerable.size[0], (int)vulnerable.size[1]);
 
-            td.Add(new TextureDescription(DEBUGbox, new Rectangle(pos, size), Color.Blue, 10));
+            td.Add(new TextureDescription(vulnerable));
 
-            pos = new Point((int)(blocking.pos[0] + blocking.offset[0]), (int)(blocking.pos[1] + blocking.offset[1]));
-            size = new Point((int)blocking.size[0], (int)blocking.size[1]);
+            td.Add(new TextureDescription(blocking));
 
-            td.Add(new TextureDescription(DEBUGbox, new Rectangle(pos, size), Color.Green, 9));
-
-            foreach (DamageBox db in attacking)
+            attacking.ForEach(db =>
             {
-                pos = new Point((int)(db.pos[0] + db.offset[0]), (int)(db.pos[1] + db.offset[1]));
-                size = new Point((int)db.size[0], (int)db.size[1]);
+                td.Add(new TextureDescription(db));
+            });
 
-                td.Add(new TextureDescription(DEBUGbox, new Rectangle(pos, size), Color.Red, 8));
-            }
+            // Get texture from animation
+            td.Clear();
+            Point pos = new Point((int)(blocking.pos[0] + blocking.offset[0]), (int)(blocking.pos[1] + blocking.offset[1]));
+            Point size = new Point((int)blocking.size[0], (int)blocking.size[1]);
+            Rectangle bound = new Rectangle(pos, size);
+            td.Add(new TextureDescription(currAnimation.GetTexture(), bound, Color.White, 1));
 
             return td;
         }

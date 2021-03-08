@@ -35,7 +35,7 @@ namespace ShootEmUp
         Texture2D[] udlr;
         bool hasConnected = false;
 
-        readonly Player player;
+        Player player;
 
         public SEU()
         {
@@ -43,21 +43,16 @@ namespace ShootEmUp
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
 
+            // 60 FPS
+            TargetElapsedTime = TimeSpan.FromTicks(166667);
+            IsFixedTimeStep = true;
+
             // Initialize keyboard input
             accKeys = new List<Keys>();
             preKeys = new List<Keys>();
             newKeys = new List<Keys>();
 
             instance = this;
-
-            HurtBox hb = new HurtBox(new float[] { -30, -30 }, new float[] { 100, 100 }, new float[] { 60, 60 });
-            player = new Player(null, hb)
-            {
-                // Where player collision is
-                blocking = CollisionBox.FromHitbox(new Hitbox(new float[] { -25, -25 }, new float[] { 250, 250 }, new float[] { 50, 50 })),
-
-                vulnerable = new HurtBox(new float[] { -20, -20 }, new float[] { 250, 250 }, new float[] { 40, 40 })
-            };
         }
 
         protected override void Initialize()
@@ -75,7 +70,7 @@ namespace ShootEmUp
 
             udlr = new Texture2D[] { Content.Load<Texture2D>("up"), Content.Load<Texture2D>("down"), Content.Load<Texture2D>("left"), Content.Load<Texture2D>("right") };
 
-            player.DEBUGbox = Content.Load<Texture2D>("box");
+            Player.DEBUGbox = Content.Load<Texture2D>("box");
 
             /** /
             _graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
@@ -84,6 +79,15 @@ namespace ShootEmUp
             isFullScreen = true;
             /**/
             _graphics.ApplyChanges();
+
+            HurtBox hb = new HurtBox(new float[] { -30, -30 }, new float[] { 100, 100 }, new float[] { 60, 60 });
+            player = new Player(null, hb)
+            {
+                // Where player collision is
+                blocking = CollisionBox.FromHitbox(new Hitbox(new float[] { -25, -25 }, new float[] { 250, 250 }, new float[] { 50, 50 })),
+
+                vulnerable = new HurtBox(new float[] { -20, -20 }, new float[] { 250, 250 }, new float[] { 40, 40 })
+            };
 
             GLOBALSTATE = new InGame(player);
         }

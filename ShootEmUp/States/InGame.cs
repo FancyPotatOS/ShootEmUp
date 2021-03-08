@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using ShootEmUp.Entities;
 using ShootEmUp.Hitboxes;
 using ShootEmUp.TextureHandling;
@@ -13,10 +14,13 @@ namespace ShootEmUp.States
     {
         readonly List<IEntity> entities;
 
+        readonly Camera camera;
+
         readonly List<Hitbox> windowBorders;
 
         public InGame(Player player)
         {
+
             entities = new List<IEntity>();
             {
                 entities.Add(player);
@@ -34,11 +38,14 @@ namespace ShootEmUp.States
 
             windowBorders = new List<Hitbox>();
             {
-                windowBorders.Add(new Hitbox(new float[] { -1, -1 }, new float[] { 0, 0 }, new float[] { 1, 2 + size[1] }));
+                //windowBorders.Add(new Hitbox(new float[] { -1, -1 }, new float[] { 0, 0 }, new float[] { 1, 2 + size[1] }));
                 windowBorders.Add(new Hitbox(new float[] { -1, -1 }, new float[] { 0, 0 }, new float[] { 2 + size[0], 1 }));
                 windowBorders.Add(new Hitbox(new float[] { 0, -1 }, new float[] { size[0], 0 }, new float[] { 1, 2 + size[1] }));
                 windowBorders.Add(new Hitbox(new float[] { -1, 0 }, new float[] { 0, size[1] }, new float[] { 2 + size[0], 1 }));
             }
+
+            // Initalize camera with position
+            camera = new Camera(size, player, 0.2f);
         }
 
         public void Update()
@@ -48,6 +55,8 @@ namespace ShootEmUp.States
             {
                 ent.Update();
             }
+
+            camera.Recenter();
         }
 
 
@@ -61,8 +70,21 @@ namespace ShootEmUp.States
                 td.AddRange(ent.GetTextures());
             }
 
+            foreach (Hitbox hb in windowBorders)
+            {
+                td.Add(new TextureDescription(hb));
+            }
+
             // Order by layer
             td = td.OrderBy(val => val.layer).ToList();
+
+            // Get position of texture in screen
+            td.ForEach(texture =>
+            {
+                int[] loc = camera.GetScreenLocation(new int[] { texture.bound.X, texture.bound.Y });
+                texture.bound.X = loc[0];
+                texture.bound.Y = loc[1];
+            });
 
             return td;
         }
