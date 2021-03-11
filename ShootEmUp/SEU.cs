@@ -68,9 +68,11 @@ namespace ShootEmUp
 
             IController.Load(Content);
 
-            udlr = new Texture2D[] { Content.Load<Texture2D>("up"), Content.Load<Texture2D>("down"), Content.Load<Texture2D>("left"), Content.Load<Texture2D>("right") };
+            udlr = new Texture2D[] { Content.Load<Texture2D>("up"), Content.Load<Texture2D>("down"), Content.Load<Texture2D>("left"), Content.Load<Texture2D>("right"), Content.Load<Texture2D>("run") };
 
             Player.DEBUGbox = Content.Load<Texture2D>("box");
+
+            Player.LoadAnimations(Content);
 
             /** /
             _graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
@@ -79,15 +81,7 @@ namespace ShootEmUp
             isFullScreen = true;
             /**/
             _graphics.ApplyChanges();
-
-            HurtBox hb = new HurtBox(new float[] { -30, -30 }, new float[] { 100, 100 }, new float[] { 60, 60 });
-            player = new Player(null, hb)
-            {
-                // Where player collision is
-                blocking = CollisionBox.FromHitbox(new Hitbox(new float[] { -25, -25 }, new float[] { 250, 250 }, new float[] { 50, 50 })),
-
-                vulnerable = new HurtBox(new float[] { -20, -20 }, new float[] { 250, 250 }, new float[] { 40, 40 })
-            };
+            player = new Player(null, new float[] { 250, 250 });
 
             GLOBALSTATE = new InGame(player);
         }
@@ -104,6 +98,7 @@ namespace ShootEmUp
             accKeys = preKeys;
 
             /**/
+            // Kill condition
             if (newKeys.Contains(Keys.Q))
                 Exit();
             // Look for controller reconnection attempt
@@ -129,7 +124,7 @@ namespace ShootEmUp
                     return;
                 }
 
-                bool finished = IController.Connect(1, new string[] { "up", "down", "left", "right" });
+                bool finished = IController.Connect(1, new string[] { "up", "down", "left", "right", "run" });
 
                 if (finished)
                 {

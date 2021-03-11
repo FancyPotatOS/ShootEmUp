@@ -30,7 +30,7 @@ namespace ShootEmUp.TextureHandling
 
             color = Color.Red;
 
-            layer = 8;
+            layer = 4;
         }
 
         public TextureDescription(CollisionBox cb)
@@ -44,7 +44,7 @@ namespace ShootEmUp.TextureHandling
 
             color = Color.Green;
 
-            layer = 9;
+            layer = 3;
         }
 
         public TextureDescription(HurtBox hb)
@@ -58,7 +58,7 @@ namespace ShootEmUp.TextureHandling
 
             color = Color.Blue;
 
-            layer = 10;
+            layer = 2;
         }
 
         public TextureDescription(Hitbox hb)
@@ -72,7 +72,7 @@ namespace ShootEmUp.TextureHandling
 
             color = Color.Purple;
 
-            layer = 7;
+            layer = 1;
         }
     }
 }

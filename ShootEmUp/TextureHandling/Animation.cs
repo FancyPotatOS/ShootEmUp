@@ -62,6 +62,11 @@ namespace ShootEmUp.TextureHandling
             }
         }
 
+        public int[] GetSizeOfCurrentAnimation()
+        {
+            return new int[] { texs[currTex].tex.Width, texs[currTex].tex.Height };
+        }
+
         public void Update()
         {
             currTime++;

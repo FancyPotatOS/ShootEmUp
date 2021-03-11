@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<Animations>
+	<child name="stand">
+		<frames>
+			<child>1</child>
+		</frames>
+		<child name="up">
+			<child>player/stand_u</child>
+		</child>
+		<child name="upleft">
+			<child>player/stand_ul</child>
+		</child>
+		<child name="left">
+			<child>player/stand_l</child>
+		</child>
+		<child name="downleft">
+			<child>player/stand_dl</child>
+		</child>
+		<child name="down">
+			<child>player/stand_d</child>
+		</child>
+		<child name="downright">
+			<child>player/stand_dr</child>
+		</child>
+		<child name="right">
+			<child>player/stand_r</child>
+		</child>
+		<child name="upright">
+			<child>player/stand_ur</child>
+		</child>
+	</child>
+	<child name="walk">
+		<frames>
+			<child>15</child>
+			<child>15</child>
+			<child>15</child>
+			<child>15</child>
+		</frames>
+		<child name="up">
+			<child>player/walk_u_1</child>
+			<child>player/stand_u</child>
+			<child>player/walk_u_2</child>
+			<child>player/stand_u</child>
+		</child>
+		<child name="upleft">
+			<child>player/walk_ul_1</child>
+			<child>player/stand_ul</child>
+			<child>player/walk_ul_2</child>
+			<child>player/stand_ul</child>
+		</child>
+		<child name="left">
+			<child>player/walk_l_1</child>
+			<child>player/stand_l</child>
+			<child>player/walk_l_2</child>
+			<child>player/stand_l</child>
+		</child>
+		<child name="downleft">
+			<child>player/walk_dl_1</child>
+			<child>player/stand_dl</child>
+			<child>player/walk_dl_2</child>
+			<child>player/stand_dl</child>
+		</child>
+		<child name="down">
+			<child>player/walk_d_1</child>
+			<child>player/stand_d</child>
+			<child>player/walk_d_2</child>
+			<child>player/stand_d</child>
+		</child>
+		<child name="downright">
+			<child>player/walk_dr_1</child>
+			<child>player/stand_dr</child>
+			<child>player/walk_dr_2</child>
+			<child>player/stand_dr</child>
+		</child>
+		<child name="right">
+			<child>player/walk_r_1</child>
+			<child>player/stand_r</child>
+			<child>player/walk_r_2</child>
+			<child>player/stand_r</child>
+		</child>
+		<child name="upright">
+			<child>player/walk_ur_1</child>
+			<child>player/stand_ur</child>
+			<child>player/walk_ur_2</child>
+			<child>player/stand_ur</child>
+		</child>
+	</child>
+	<child name="run">
+		<frames>
+			<child>8</child>
+			<child>8</child>
+			<child>8</child>
+			<child>8</child>
+			<child>8</child>
+		</frames>
+		<child name="up">
+			<child>player/run_u_1</child>
+			<child>player/run_u_2</child>
+			<child>player/run_u_3</child>
+			<child>player/run_u_4</child>
+			<child>player/run_u_5</child>
+		</child>
+		<child name="upleft">
+			<child>player/run_ul_1</child>
+			<child>player/run_ul_2</child>
+			<child>player/run_ul_3</child>
+			<child>player/run_ul_4</child>
+			<child>player/run_ul_5</child>
+		</child>
+		<child name="left">
+			<child>player/run_l_1</child>
+			<child>player/run_l_2</child>
+			<child>player/run_l_3</child>
+			<child>player/run_l_4</child>
+			<child>player/run_l_5</child>
+		</child>
+		<child name="downleft">
+			<child>player/run_dl_1</child>
+			<child>player/run_dl_2</child>
+			<child>player/run_dl_3</child>
+			<child>player/run_dl_4</child>
+			<child>player/run_dl_5</child>
+		</child>
+		<child name="down">
+			<child>player/run_d_1</child>
+			<child>player/run_d_2</child>
+			<child>player/run_d_3</child>
+			<child>player/run_d_4</child>
+			<child>player/run_d_5</child>
+		</child>
+		<child name="downright">
+			<child>player/run_dr_1</child>
+			<child>player/run_dr_2</child>
+			<child>player/run_dr_3</child>
+			<child>player/run_dr_4</child>
+			<child>player/run_dr_5</child>
+		</child>
+		<child name="right">
+			<child>player/run_r_1</child>
+			<child>player/run_r_2</child>
+			<child>player/run_r_3</child>
+			<child>player/run_r_4</child>
+			<child>player/run_r_5</child>
+		</child>
+		<child name="upright">
+			<child>player/run_ur_1</child>
+			<child>player/run_ur_2</child>
+			<child>player/run_ur_3</child>
+			<child>player/run_ur_4</child>
+			<child>player/run_ur_5</child>
+		</child>
+	</child>
+</Animations>

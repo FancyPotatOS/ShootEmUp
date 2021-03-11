@@ -63,7 +63,7 @@ namespace ShootEmUp.Hitboxes
             else if (hb.pos[0] < this.pos[0])
             {
                 float leftside = this.pos[0] + this.offset[0];
-                return leftside + hb.offset[0];
+                return leftside - (hb.offset[0] + hb.size[0]);
             }
 
             // Nonsensical area
@@ -88,7 +88,7 @@ namespace ShootEmUp.Hitboxes
             else if (hb.pos[1] < this.pos[1])
             {
                 float bottomside = this.pos[1] + this.offset[1];
-                return bottomside + hb.offset[1];
+                return bottomside - (hb.size[1] + hb.offset[1]);
             }
 
             // Nonsensical area
