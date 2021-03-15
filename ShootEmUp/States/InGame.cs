@@ -22,7 +22,7 @@ namespace ShootEmUp.States
         readonly List<Hitbox> windowBorders;
 
         readonly Deck<TraditionalDeck> MasterDeck;
-        Animation topDeck;
+        //Particle topDeck;
 
         public InGame(Player player)
         {
@@ -171,22 +171,5 @@ namespace ShootEmUp.States
         {
             return entities.FindAll(match);
         }
-
-        /** /
-        public void GetTopDeckAnimation()
-        {
-            // Make a temporary card
-            Card temp = new Card(MasterDeck.PeekFromTop(), "u");
-
-            Dictionary<string, Animation> backDic;
-            // Get the back of the card
-            if (Card.animations.TryGetValue("still_card_back", out backDic))
-            {
-                backDic.TryGetValue("upright", out Animation backCard);
-                
-            }
-            Animation top
-        }
-        /**/
     }
 }
