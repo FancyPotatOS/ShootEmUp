@@ -22,7 +22,8 @@ namespace ShootEmUp.States
         readonly List<Hitbox> windowBorders;
 
         readonly Deck<TraditionalDeck> MasterDeck;
-        //Particle topDeck;
+
+        Particle[] deckAnimations;
 
         public InGame(Player player)
         {
@@ -62,6 +63,9 @@ namespace ShootEmUp.States
             }
 
             player.MasterDeck = MasterDeck;
+
+            // Create top card animations
+            CreateDeckAnimation();
         }
 
         public void Update()
@@ -87,6 +91,8 @@ namespace ShootEmUp.States
                 ent.Update();
             }
 
+            UpdateDeckAnimations();
+
             camera.Recenter();
         }
 
@@ -106,9 +112,6 @@ namespace ShootEmUp.States
                 td.Add(new TextureDescription(hb));
             }
 
-            // Order by layer
-            td = td.OrderBy(val => val.layer).ToList();
-
             // Get position of texture in screen
             td.ForEach(texture =>
             {
@@ -116,6 +119,15 @@ namespace ShootEmUp.States
                 texture.bound.X = loc[0];
                 texture.bound.Y = loc[1];
             });
+
+            // Add deck animations after camera change
+            foreach (Particle particle in deckAnimations)
+            {
+                td.AddRange(particle.GetTextures());
+            }
+
+            // Order by layer
+            td = td.OrderBy(val => val.layer).ToList();
 
             return td;
         }
@@ -170,6 +182,140 @@ namespace ShootEmUp.States
         public List<IEntity> FindEntities(Predicate<IEntity> match)
         {
             return entities.FindAll(match);
+        }
+
+        public Animation GetBackCard(string dir)
+        {
+            string animType = "still_card_back";
+            string direction = ((dir == "u" || dir == "d") ? "upright" : "sideways");
+            if (Card.animations.TryGetValue(animType, out Dictionary<string, Animation> anims))
+            {
+                if (anims.TryGetValue(direction, out Animation anim))
+                {
+                    return anim;
+                }
+                else
+                    throw new Exception("Could not find directional animation '" + direction + "' in '" + animType + "'!");
+            }
+            else
+                throw new Exception("Could not find animation '" + animType + "' in cards!");
+        }
+
+        public void CreateDeckAnimation()
+        {
+            Animation backCard = GetBackCard("u");
+
+            deckAnimations = new Particle[3];
+            int max = 3;
+            for (int i = 0; i < max; i++)
+            {
+                // Amount design shifts
+                int shift = 10;
+                int boxSize = 40;
+
+                float[] offset = new float[] { 10 + (i * shift), -(10 + ((max - 1) * shift) + (boxSize)) + (i * shift) };
+                float[] pos = new float[] { 0, camera.screenSize[1] };
+                float[] s = new float[] { boxSize, boxSize };
+
+                List<Animation> anims = new List<Animation>();
+                if (i < max - 1)
+                {
+                    anims.Add(backCard);
+                }
+                else if (i == max - 1)
+                {
+                    anims.AddRange(GetCardAnimation(MasterDeck.PeekFromTop(), "u"));
+                }
+
+                deckAnimations[i] = new Particle(offset, s, pos, new float[] { 0, 0 }, new float[] { 0, 0 }, 100000, uint.MaxValue, false, anims);
+            }
+        }
+
+        public void UpdateDeckAnimations()
+        {
+            // Count the cards
+            int mdCount = MasterDeck.GetCount();
+
+            // If the deck is empty
+            if (mdCount == 0)
+            {
+                // Wipe it
+                deckAnimations = new Particle[0];
+                return;
+            }
+
+            // Find top card
+            List<Animation> topCard = GetCardAnimation(MasterDeck.PeekFromTop(), "u");
+            
+            // If there is cards
+            if (deckAnimations.Length != 0)
+                // Update top card animation
+                deckAnimations[^1].ChangeAnimations(topCard);
+
+            // If the picture is larger than should be
+            if (deckAnimations.Length > Math.Min(mdCount, 3))
+            {
+                // Create new array to replace
+                Particle[] newDA = new Particle[mdCount];
+
+                // Copy them over
+                for (int i = 0; i < mdCount; i++)
+                {
+                    newDA[i] = deckAnimations[i];
+                }
+
+                // Set last one
+                newDA[^1] = deckAnimations[^1];
+
+                deckAnimations = newDA;
+            }
+            // If the picture is smaller than should be
+            else if (deckAnimations.Length < Math.Min(mdCount, 3))
+            {
+                deckAnimations = new Particle[Math.Min(mdCount, 3)];
+
+                // Get back card animation
+                Animation backCard = GetBackCard("u");
+
+                // Fill them in the right position
+                int max = Math.Min(mdCount, 3);
+                for (int i = 0; i < max; i++)
+                {
+                    // Amount design shifts
+                    int shift = 10;
+                    int boxSize = 40;
+
+                    float[] offset = new float[] { 10 + (i * shift), -(10 + ((max - 1) * shift) + (boxSize)) + (i * shift) };
+                    float[] pos = new float[] { 0, camera.screenSize[1] };
+                    float[] s = new float[] { boxSize, boxSize };
+
+                    List<Animation> anims = new List<Animation>();
+                    if (i < max - 1)
+                    {
+                        anims.Add(backCard);
+                    }
+                    else if (i == max - 1)
+                    {
+                        anims.AddRange(topCard);
+                    }
+
+                    deckAnimations[i] = new Particle(offset, s, pos, new float[] { 0, 0 }, new float[] { 0, 0 }, 100000, uint.MaxValue, false, anims);
+                }
+            }
+        }
+
+        public List<Animation> GetCardAnimation(TraditionalDeck card, string dir)
+        {
+            Card temp = new Card(card, dir);
+
+            List<Animation> liszt = new List<Animation>();
+            {
+                liszt.Add(temp.GetStillCardAnimation());
+                liszt.Add(temp.GetStillRankAnimation());
+                liszt.Add(temp.GetStillSuitAnimation());
+            }
+
+            return liszt;
         }
     }
 }

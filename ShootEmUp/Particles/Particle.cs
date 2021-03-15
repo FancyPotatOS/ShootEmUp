@@ -1,4 +1,5 @@
-﻿using ShootEmUp.Entities;
+﻿using Microsoft.Xna.Framework;
+using ShootEmUp.Entities;
 using ShootEmUp.Hitboxes;
 using ShootEmUp.TextureHandling;
 using System;
@@ -12,7 +13,7 @@ namespace ShootEmUp
         readonly bool hasCollisionBox;
         readonly CollisionBox blocking;
 
-        readonly float[] locPointer;
+        public float[] locPointer;
 
         // Velocity and acceleration
         readonly float[] vel;
@@ -23,9 +24,9 @@ namespace ShootEmUp
         // Time before dies
         readonly Cooldown lifetime;
 
-        TextureDescription texDesc;
+        List<Animation> animations;
 
-        public Particle(float[] offset, float[] size, float[] locationPointer, float[] vel, float[] decc, float toZero, uint lifetime, bool useCollisionBox, TextureDescription td)
+        public Particle(float[] offset, float[] size, float[] locationPointer, float[] vel, float[] decc, float toZero, uint lifetime, bool useCollisionBox, List<Animation> anims)
         {
             // Ensure decceleration is above 0
             decc[0] = Math.Max(decc[0], 0);
@@ -39,7 +40,7 @@ namespace ShootEmUp
             this.vel = vel;
             this.decc = decc;
             this.toZero = toZero;
-            texDesc = td;
+            animations = anims;
 
             // Mark with collisionBox
             hasCollisionBox = useCollisionBox;
@@ -86,13 +87,29 @@ namespace ShootEmUp
         { lifetime.Update(); return lifetime.CanUse(); }
 
         // Get all related textures
-        public TextureDescription GetTexture()
+        public List<TextureDescription> GetTextures()
         {
-            // Change location of texture
-            texDesc.bound.X = (int)locPointer[0];
-            texDesc.bound.Y = (int)locPointer[1];
+            List<TextureDescription> td = new List<TextureDescription>();
 
-            return texDesc;
+            foreach (Animation anim in animations)
+            {
+                // Get texture from animation
+                int[] currAnimSize = anim.GetSizeOfCurrentAnimation();
+                Point pos = new Point(
+                    (int)(blocking.pos[0] + blocking.offset[0] + (blocking.size[0] / 2) - (currAnimSize[0] / 2)),
+                    (int)(blocking.pos[1] + blocking.offset[1] + blocking.size[1] - currAnimSize[1])
+                );
+                Point size = new Point((int)currAnimSize[0], (int)currAnimSize[1]);
+                Rectangle bound = new Rectangle(pos, size);
+                td.Add(new TextureDescription(anim.GetTexture(), bound, Color.White, 10));
+            }
+
+            return td;
+        }
+
+        public void ChangeAnimations(List<Animation> newAnims)
+        {
+            animations = newAnims;
         }
 
         // Returns sign of the value
