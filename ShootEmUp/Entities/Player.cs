@@ -11,15 +11,17 @@ using System.Linq;
 using CardsDevelopment;
 using System.Xml;
 using Microsoft.Xna.Framework.Content;
+using System.Text.RegularExpressions;
 
 namespace ShootEmUp.Entities
 {
-    class Player : IEntity
+    class Player : AttemptMove, IEntity
     {
         public static Dictionary<string, Dictionary<string, Animation>> animations;
         Animation currAnimation;
         string animationName;
 
+        public Deck<TraditionalDeck> MasterDeck;
 
         public float[] speed;
         const float maxWalkSpeed = 5;
@@ -29,7 +31,7 @@ namespace ShootEmUp.Entities
 
         public IController controller;
 
-        float[] posPointer;
+        readonly float[] posPointer;
         public HurtBox vulnerable;
         public CollisionBox blocking;
         public List<DamageBox> attacking;
@@ -38,7 +40,10 @@ namespace ShootEmUp.Entities
         public int facingChange;
         bool running;
 
-        public Player(IController cont, float[] pos)
+        bool hasShot = false;
+        readonly Cooldown shotCooldown;
+
+        public Player(IController cont, float[] pos, Deck<TraditionalDeck> masterDeck)
         {
             // Fill hitboxes from pos
             posPointer = pos;
@@ -54,6 +59,10 @@ namespace ShootEmUp.Entities
             facing = "down";
             facingChange = 0;
             running = false;
+
+            // Create deck of cards
+            MasterDeck = masterDeck;
+            shotCooldown = new Cooldown(0, 20);
         }
 
         public void Update()
@@ -68,9 +77,6 @@ namespace ShootEmUp.Entities
 
             // Save which buttons are pressed
             int[] buttonVec = { 0, 0 };
-
-            // Whether animation should update
-            bool changedAnim = false;
 
             // Whether run is still pressed
             bool newRun = controller.IsPressed("run");
@@ -116,8 +122,9 @@ namespace ShootEmUp.Entities
 
             string dir = VectorToDirection(buttonVec);
 
+            // Whether animation should update
             // Update animation if direction changed or running has changed and not walking
-            changedAnim = (facing  != dir) || (animationName != newAnim) || (animationName != "walk" && (newRun != running));
+            bool changedAnim = facing != dir || animationName != newAnim || animationName != "walk" && newRun != running;
 
             running = newRun;
             animationName = newAnim;
@@ -133,60 +140,59 @@ namespace ShootEmUp.Entities
                 currAnimation = GetAnimation(animationName, facing);
             }
 
-            float[] sumChange = new float[2];
+            // Attempt to move with speed; Speed is changed within function
+            float[] hbChange = AttemptToMove(blocking, speed);
+            // Change hitbox positions
+            posPointer[0] += hbChange[0];
+            posPointer[1] += hbChange[1];
 
-            // Attempt to move X
-            Hitbox movedX = blocking.Copy();
-            movedX.pos[0] += speed[0];
-
-            // If not null, then crosses some hitbox
-            Hitbox crosses = SEU.instance.GLOBALSTATE.GetCrossesEx(movedX);
-            if (crosses != null)
+            // Shoot a card
+            int mag = 15;
+            // Update cooldown
+            shotCooldown.Update();
+            // No cooldown and shooting
+            if (shotCooldown.CanUse() && controller.IsPressed("shoot"))
             {
-                sumChange[0] = crosses.ConnectX(blocking) - blocking.pos[0];
-                speed[0] = 0;
+                if (!hasShot)
+                {
+                    float[] facingVec = GetFacingVector();
+                    if (!MasterDeck.IsEmpty())
+                    {
+                        shotCooldown.Reset();
+
+                        Card newCard = new Card(new float[] { facingVec[0] * mag, facingVec[1] * mag }, new float[] { posPointer[0], posPointer[1] }, facing.Substring(0, 1), MasterDeck.TakeFromTop());
+
+                        SEU.instance.GLOBALSTATE.AddEntity(newCard);
+                    }
+                }
+
+                // Save as shooting
+                hasShot = true;
             }
             else
-                sumChange[0] = speed[0];
+                // No longer pressing shoot button
+                hasShot = false;
 
-
-            // Change position pointer
-            posPointer[0] += sumChange[0];
-
-            // Attempt to move X
-            Hitbox movedY = blocking.Copy();
-            movedY.pos[1] += speed[1];
-
-            // If not null, then crosses some hitbox
-            crosses = SEU.instance.GLOBALSTATE.GetCrossesEx(movedY);
-            if (crosses != null)
+            // If touching a card
+            List<IEntity> cardsTouching = SEU.instance.GLOBALSTATE.FindEntities(ent => 
+                                                                            ent.GetType().Equals(typeof(Card)) &&
+                                                                            ent.GetCollisionHitboxes().Exists(cb => blocking.Crosses(cb)));
+            foreach (Card card in cardsTouching)
             {
-                sumChange[1] = crosses.ConnectY(blocking) - blocking.pos[1];
-                speed[1] = 0;
+                if (card.grabCooldown.CanUse())
+                {
+                    // Add card back into this.cards
+                    MasterDeck.AddToTop(card.card);
+
+                    // Remove the card from the world
+                    SEU.instance.GLOBALSTATE.RemoveEntity(temp => temp == card);
+                }
             }
-            else
-                sumChange[1] = speed[1];
-           
-            // Change position pointer
-            posPointer[1] += sumChange[1];
         }
 
         public List<TextureDescription> GetTextures()
         {
             List<TextureDescription> td = new List<TextureDescription>();
-            /** /
-            {
-                td.Add(new TextureDescription(vulnerable));
-
-                td.Add(new TextureDescription(blocking));
-            }
-
-            attacking.ForEach(db =>
-            {
-                td.Add(new TextureDescription(db));
-            });
-            td.Clear();
-            /**/
 
             // Get texture from animation
             int[] currAnimSize = currAnimation.GetSizeOfCurrentAnimation();
@@ -222,62 +228,7 @@ namespace ShootEmUp.Entities
 
         public static void LoadAnimations(ContentManager Content)
         {
-            // Do not reload animations
-            if (animations != null)
-            {
-                return;
-            }
-
-            // Dictionary by type
-            animations = new Dictionary<string, Dictionary<string, Animation>>();
-
-            // Load file from resources
-            XmlDocument doc = new XmlDocument();
-            doc.Load(EmbeddedFileHandler.GetStreamReader("Animations/player_animations.xml"));
-
-            foreach (XmlNode node in doc.SelectNodes("/Animations/child"))
-            {
-                // Get name of animation
-                string name = node.Attributes.GetNamedItem("name").InnerText;
-
-                // Animation organized by direction
-                Dictionary<string, Animation> directionalAnimation = new Dictionary<string, Animation>();
-
-                // Get each frame
-                List<int> frames = new List<int>();
-                foreach (XmlNode frm in node.SelectSingleNode("frames").ChildNodes)
-                {
-                    frames.Add(Int32.Parse(frm.InnerText));
-                }
-                int[] frameArr = frames.ToArray();
-
-                // For each direction
-                foreach (XmlNode child in node.SelectNodes("child"))
-                {
-                    // Get name of direction
-                    string direction = child.Attributes.GetNamedItem("name").InnerText;
-
-                    // Get each path for direction
-                    List<Texture2D> texs = new List<Texture2D>();
-                    foreach (XmlNode pathNode in child.SelectNodes("child"))
-                    {
-                        string path = pathNode.InnerText;
-
-                        // Get texture and save
-                        Texture2D tex = Content.Load<Texture2D>(path);
-                        texs.Add(tex);
-                    }
-
-                    // Get textures in array format
-                    Texture2D[] texsArr = texs.ToArray();
-
-                    // Add animation to direction
-                    directionalAnimation.Add(direction, new Animation(frameArr, texsArr));
-                }
-
-                // Add direction animation dictionary to full dictionary
-                animations.Add(name, directionalAnimation);
-            }
+            animations = IEntity.LoadAnimations(Content, "Animations/player_animations.xml");
         }
 
         public Animation GetAnimation(string type, string direction)
@@ -312,6 +263,22 @@ namespace ShootEmUp.Entities
         int GetMag(float n)
         {
             return (n > 0) ? 1 : (n < 0) ? -1 : 0;
+        }
+
+        // 1 or -1 for each axis facing
+        public float[] GetFacingVector()
+        {
+            float ud = 0;
+            if (Regex.Matches(facing, ".*up.*").Count > 0)
+                ud = -1;
+            else if (Regex.Matches(facing, ".*down.*").Count > 0)
+                ud = 1;
+            float lr = 0;
+            if (Regex.Matches(facing, ".*right.*").Count > 0)
+                lr = 1;
+            else if (Regex.Matches(facing, ".*left.*").Count > 0)
+                lr = -1;
+            return new float[] { lr, ud };
         }
     }
 }

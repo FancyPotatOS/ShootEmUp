@@ -11,6 +11,8 @@ namespace ShootEmUp.TextureHandling
         int currTime;
         int lifetime;
 
+        UInt64 lastUpdateID;
+
         TimedTexture[] texs;
 
         public Animation(int[] frameTiming, Texture2D[] textures)
@@ -34,6 +36,8 @@ namespace ShootEmUp.TextureHandling
             texs[0] = new TimedTexture(0, textures[0]);
             for (int i = 1; i < textures.Length; i++)
                 texs[i] = new TimedTexture(texs[i - 1].frame + frameTiming[i - 1], textures[i]);
+
+            lastUpdateID = SEU.instance.updateID;
         }
 
         // Reset animation to beginning
@@ -69,6 +73,13 @@ namespace ShootEmUp.TextureHandling
 
         public void Update()
         {
+            // If already updated, do not update againn
+            if (SEU.instance.updateID <= lastUpdateID)
+                return;
+
+            // Otherwise this is the latest update ID
+            lastUpdateID = SEU.instance.updateID;
+
             currTime++;
         }
 
@@ -76,6 +87,29 @@ namespace ShootEmUp.TextureHandling
         public bool Expired()
         {
             return currTime >= lifetime;
+        }
+
+        public void Synchronize(Animation change)
+        {
+            // If it won't fit into animation
+            if (currTime > change.GetLifetime())
+            {
+                throw new Exception("Cannot synchronize animations! Currtime: " + currTime + "; Other's lifetime: " + change.GetLifetime() + ".");
+            }
+            else
+            {
+                change.SetCurrTime(currTime);
+            }
+        }
+
+        public int GetLifetime()
+        {
+            return lifetime;
+        }
+
+        public void SetCurrTime(int time)
+        {
+            currTime = time;
         }
     }
 

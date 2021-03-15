@@ -23,6 +23,8 @@ namespace ShootEmUp
 
         public bool isFullScreen = false;
 
+        public UInt64 updateID;
+
         /*  Keyboard inputs */
         // List of accounted keys
         public List<Keys> accKeys;
@@ -53,6 +55,8 @@ namespace ShootEmUp
             newKeys = new List<Keys>();
 
             instance = this;
+
+            updateID = 0;
         }
 
         protected override void Initialize()
@@ -68,11 +72,11 @@ namespace ShootEmUp
 
             IController.Load(Content);
 
-            udlr = new Texture2D[] { Content.Load<Texture2D>("up"), Content.Load<Texture2D>("down"), Content.Load<Texture2D>("left"), Content.Load<Texture2D>("right"), Content.Load<Texture2D>("run") };
+            udlr = new Texture2D[] { Content.Load<Texture2D>("up"), Content.Load<Texture2D>("down"), Content.Load<Texture2D>("left"), Content.Load<Texture2D>("right"), Content.Load<Texture2D>("run"), Content.Load<Texture2D>("shoot") };
 
             Player.DEBUGbox = Content.Load<Texture2D>("box");
 
-            Player.LoadAnimations(Content);
+            IEntity.LoadAllAnimations(Content);
 
             /** /
             _graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
@@ -81,13 +85,15 @@ namespace ShootEmUp
             isFullScreen = true;
             /**/
             _graphics.ApplyChanges();
-            player = new Player(null, new float[] { 250, 250 });
+            player = new Player(null, new float[] { 250, 250 }, null);
 
             GLOBALSTATE = new InGame(player);
         }
 
         protected override void Update(GameTime gameTime)
         {
+            updateID++;
+
             // Keys that are being pressed
             preKeys = Keyboard.GetState().GetPressedKeys().ToList();
 
@@ -124,7 +130,7 @@ namespace ShootEmUp
                     return;
                 }
 
-                bool finished = IController.Connect(1, new string[] { "up", "down", "left", "right", "run" });
+                bool finished = IController.Connect(1, new string[] { "up", "down", "left", "right", "run", "shoot" });
 
                 if (finished)
                 {

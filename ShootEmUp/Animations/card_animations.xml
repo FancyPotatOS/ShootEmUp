@@ -1,0 +1,1152 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<Animations>
+	<child name="still_rank">
+		<frames>
+			<child>1</child>
+		</frames>
+		<child name="black_two_u">
+			<child>card/ranks/black_two_u</child>
+		</child>
+		<child name="black_two_r">
+			<child>card/ranks/black_two_r</child>
+		</child>
+		<child name="black_two_d">
+			<child>card/ranks/black_two_d</child>
+		</child>
+		<child name="black_two_l">
+			<child>card/ranks/black_two_l</child>
+		</child>
+		<child name="black_three_u">
+			<child>card/ranks/black_three_u</child>
+		</child>
+		<child name="black_three_r">
+			<child>card/ranks/black_three_r</child>
+		</child>
+		<child name="black_three_d">
+			<child>card/ranks/black_three_d</child>
+		</child>
+		<child name="black_three_l">
+			<child>card/ranks/black_three_l</child>
+		</child>
+		<child name="black_four_u">
+			<child>card/ranks/black_four_u</child>
+		</child>
+		<child name="black_four_r">
+			<child>card/ranks/black_four_r</child>
+		</child>
+		<child name="black_four_d">
+			<child>card/ranks/black_four_d</child>
+		</child>
+		<child name="black_four_l">
+			<child>card/ranks/black_four_l</child>
+		</child>
+		<child name="black_five_u">
+			<child>card/ranks/black_five_u</child>
+		</child>
+		<child name="black_five_r">
+			<child>card/ranks/black_five_r</child>
+		</child>
+		<child name="black_five_d">
+			<child>card/ranks/black_five_d</child>
+		</child>
+		<child name="black_five_l">
+			<child>card/ranks/black_five_l</child>
+		</child>
+		<child name="black_six_u">
+			<child>card/ranks/black_six_u</child>
+		</child>
+		<child name="black_six_r">
+			<child>card/ranks/black_six_r</child>
+		</child>
+		<child name="black_six_d">
+			<child>card/ranks/black_six_d</child>
+		</child>
+		<child name="black_six_l">
+			<child>card/ranks/black_six_l</child>
+		</child>
+		<child name="black_seven_u">
+			<child>card/ranks/black_seven_u</child>
+		</child>
+		<child name="black_seven_r">
+			<child>card/ranks/black_seven_r</child>
+		</child>
+		<child name="black_seven_d">
+			<child>card/ranks/black_seven_d</child>
+		</child>
+		<child name="black_seven_l">
+			<child>card/ranks/black_seven_l</child>
+		</child>
+		<child name="black_eight_u">
+			<child>card/ranks/black_eight_u</child>
+		</child>
+		<child name="black_eight_r">
+			<child>card/ranks/black_eight_r</child>
+		</child>
+		<child name="black_eight_d">
+			<child>card/ranks/black_eight_d</child>
+		</child>
+		<child name="black_eight_l">
+			<child>card/ranks/black_eight_l</child>
+		</child>
+		<child name="black_nine_u">
+			<child>card/ranks/black_nine_u</child>
+		</child>
+		<child name="black_nine_r">
+			<child>card/ranks/black_nine_r</child>
+		</child>
+		<child name="black_nine_d">
+			<child>card/ranks/black_nine_d</child>
+		</child>
+		<child name="black_nine_l">
+			<child>card/ranks/black_nine_l</child>
+		</child>
+		<child name="black_ten_u">
+			<child>card/ranks/black_ten_u</child>
+		</child>
+		<child name="black_ten_r">
+			<child>card/ranks/black_ten_r</child>
+		</child>
+		<child name="black_ten_d">
+			<child>card/ranks/black_ten_d</child>
+		</child>
+		<child name="black_ten_l">
+			<child>card/ranks/black_ten_l</child>
+		</child>
+		<child name="black_jack_u">
+			<child>card/ranks/black_jack_u</child>
+		</child>
+		<child name="black_jack_r">
+			<child>card/ranks/black_jack_r</child>
+		</child>
+		<child name="black_jack_d">
+			<child>card/ranks/black_jack_d</child>
+		</child>
+		<child name="black_jack_l">
+			<child>card/ranks/black_jack_l</child>
+		</child>
+		<child name="black_queen_u">
+			<child>card/ranks/black_queen_u</child>
+		</child>
+		<child name="black_queen_r">
+			<child>card/ranks/black_queen_r</child>
+		</child>
+		<child name="black_queen_d">
+			<child>card/ranks/black_queen_d</child>
+		</child>
+		<child name="black_queen_l">
+			<child>card/ranks/black_queen_l</child>
+		</child>
+		<child name="black_king_u">
+			<child>card/ranks/black_king_u</child>
+		</child>
+		<child name="black_king_r">
+			<child>card/ranks/black_king_r</child>
+		</child>
+		<child name="black_king_d">
+			<child>card/ranks/black_king_d</child>
+		</child>
+		<child name="black_king_l">
+			<child>card/ranks/black_king_l</child>
+		</child>
+		<child name="black_ace_u">
+			<child>card/ranks/black_ace_u</child>
+		</child>
+		<child name="black_ace_r">
+			<child>card/ranks/black_ace_r</child>
+		</child>
+		<child name="black_ace_d">
+			<child>card/ranks/black_ace_d</child>
+		</child>
+		<child name="black_ace_l">
+			<child>card/ranks/black_ace_l</child>
+		</child>
+		<child name="red_two_u">
+			<child>card/ranks/red_two_u</child>
+		</child>
+		<child name="red_two_r">
+			<child>card/ranks/red_two_r</child>
+		</child>
+		<child name="red_two_d">
+			<child>card/ranks/red_two_d</child>
+		</child>
+		<child name="red_two_l">
+			<child>card/ranks/red_two_l</child>
+		</child>
+		<child name="red_three_u">
+			<child>card/ranks/red_three_u</child>
+		</child>
+		<child name="red_three_r">
+			<child>card/ranks/red_three_r</child>
+		</child>
+		<child name="red_three_d">
+			<child>card/ranks/red_three_d</child>
+		</child>
+		<child name="red_three_l">
+			<child>card/ranks/red_three_l</child>
+		</child>
+		<child name="red_four_u">
+			<child>card/ranks/red_four_u</child>
+		</child>
+		<child name="red_four_r">
+			<child>card/ranks/red_four_r</child>
+		</child>
+		<child name="red_four_d">
+			<child>card/ranks/red_four_d</child>
+		</child>
+		<child name="red_four_l">
+			<child>card/ranks/red_four_l</child>
+		</child>
+		<child name="red_five_u">
+			<child>card/ranks/red_five_u</child>
+		</child>
+		<child name="red_five_r">
+			<child>card/ranks/red_five_r</child>
+		</child>
+		<child name="red_five_d">
+			<child>card/ranks/red_five_d</child>
+		</child>
+		<child name="red_five_l">
+			<child>card/ranks/red_five_l</child>
+		</child>
+		<child name="red_six_u">
+			<child>card/ranks/red_six_u</child>
+		</child>
+		<child name="red_six_r">
+			<child>card/ranks/red_six_r</child>
+		</child>
+		<child name="red_six_d">
+			<child>card/ranks/red_six_d</child>
+		</child>
+		<child name="red_six_l">
+			<child>card/ranks/red_six_l</child>
+		</child>
+		<child name="red_seven_u">
+			<child>card/ranks/red_seven_u</child>
+		</child>
+		<child name="red_seven_r">
+			<child>card/ranks/red_seven_r</child>
+		</child>
+		<child name="red_seven_d">
+			<child>card/ranks/red_seven_d</child>
+		</child>
+		<child name="red_seven_l">
+			<child>card/ranks/red_seven_l</child>
+		</child>
+		<child name="red_eight_u">
+			<child>card/ranks/red_eight_u</child>
+		</child>
+		<child name="red_eight_r">
+			<child>card/ranks/red_eight_r</child>
+		</child>
+		<child name="red_eight_d">
+			<child>card/ranks/red_eight_d</child>
+		</child>
+		<child name="red_eight_l">
+			<child>card/ranks/red_eight_l</child>
+		</child>
+		<child name="red_nine_u">
+			<child>card/ranks/red_nine_u</child>
+		</child>
+		<child name="red_nine_r">
+			<child>card/ranks/red_nine_r</child>
+		</child>
+		<child name="red_nine_d">
+			<child>card/ranks/red_nine_d</child>
+		</child>
+		<child name="red_nine_l">
+			<child>card/ranks/red_nine_l</child>
+		</child>
+		<child name="red_ten_u">
+			<child>card/ranks/red_ten_u</child>
+		</child>
+		<child name="red_ten_r">
+			<child>card/ranks/red_ten_r</child>
+		</child>
+		<child name="red_ten_d">
+			<child>card/ranks/red_ten_d</child>
+		</child>
+		<child name="red_ten_l">
+			<child>card/ranks/red_ten_l</child>
+		</child>
+		<child name="red_jack_u">
+			<child>card/ranks/red_jack_u</child>
+		</child>
+		<child name="red_jack_r">
+			<child>card/ranks/red_jack_r</child>
+		</child>
+		<child name="red_jack_d">
+			<child>card/ranks/red_jack_d</child>
+		</child>
+		<child name="red_jack_l">
+			<child>card/ranks/red_jack_l</child>
+		</child>
+		<child name="red_queen_u">
+			<child>card/ranks/red_queen_u</child>
+		</child>
+		<child name="red_queen_r">
+			<child>card/ranks/red_queen_r</child>
+		</child>
+		<child name="red_queen_d">
+			<child>card/ranks/red_queen_d</child>
+		</child>
+		<child name="red_queen_l">
+			<child>card/ranks/red_queen_l</child>
+		</child>
+		<child name="red_king_u">
+			<child>card/ranks/red_king_u</child>
+		</child>
+		<child name="red_king_r">
+			<child>card/ranks/red_king_r</child>
+		</child>
+		<child name="red_king_d">
+			<child>card/ranks/red_king_d</child>
+		</child>
+		<child name="red_king_l">
+			<child>card/ranks/red_king_l</child>
+		</child>
+		<child name="red_ace_u">
+			<child>card/ranks/red_ace_u</child>
+		</child>
+		<child name="red_ace_r">
+			<child>card/ranks/red_ace_r</child>
+		</child>
+		<child name="red_ace_d">
+			<child>card/ranks/red_ace_d</child>
+		</child>
+		<child name="red_ace_l">
+			<child>card/ranks/red_ace_l</child>
+		</child>
+	</child>
+	<child name="still_suit">
+		<frames>
+			<child>1</child>
+		</frames>
+		<child name="spades_u">
+			<child>card/suits/spades_u</child>
+		</child>
+		<child name="spades_r">
+			<child>card/suits/spades_r</child>
+		</child>
+		<child name="spades_d">
+			<child>card/suits/spades_d</child>
+		</child>
+		<child name="spades_l">
+			<child>card/suits/spades_l</child>
+		</child>
+		<child name="diamonds_u">
+			<child>card/suits/diamonds_u</child>
+		</child>
+		<child name="diamonds_r">
+			<child>card/suits/diamonds_r</child>
+		</child>
+		<child name="diamonds_d">
+			<child>card/suits/diamonds_d</child>
+		</child>
+		<child name="diamonds_l">
+			<child>card/suits/diamonds_l</child>
+		</child>
+		<child name="clubs_u">
+			<child>card/suits/clubs_u</child>
+		</child>
+		<child name="clubs_r">
+			<child>card/suits/clubs_r</child>
+		</child>
+		<child name="clubs_d">
+			<child>card/suits/clubs_d</child>
+		</child>
+		<child name="clubs_l">
+			<child>card/suits/clubs_l</child>
+		</child>
+		<child name="hearts_u">
+			<child>card/suits/hearts_u</child>
+		</child>
+		<child name="hearts_r">
+			<child>card/suits/hearts_r</child>
+		</child>
+		<child name="hearts_d">
+			<child>card/suits/hearts_d</child>
+		</child>
+		<child name="hearts_l">
+			<child>card/suits/hearts_l</child>
+		</child>
+	</child>
+	<child name="still_card">
+		<frames>
+			<child>1</child>
+		</frames>
+		<child name="upright">
+			<child>card/card_upright</child>
+		</child>
+		<child name="sideways">
+			<child>card/card_sideways</child>
+		</child>
+	</child>
+	<child name="still_card_back">
+		<frames>
+			<child>1</child>
+		</frames>
+		<child name="upright">
+			<child>card/card_back_upright</child>
+		</child>
+		<child name="sideways">
+			<child>card/card_back_sideways</child>
+		</child>
+	</child>
+	<child name="spin_rank">
+		<frames>
+			<child>7</child>
+			<child>7</child>
+			<child>7</child>
+			<child>7</child>
+		</frames>
+		<child name="black_two_u">
+			<child>card/ranks/black_two_u</child>
+			<child>card/ranks/black_two_r</child>
+			<child>card/ranks/black_two_d</child>
+			<child>card/ranks/black_two_l</child>
+		</child>
+		<child name="black_two_r">
+			<child>card/ranks/black_two_r</child>
+			<child>card/ranks/black_two_d</child>
+			<child>card/ranks/black_two_l</child>
+			<child>card/ranks/black_two_u</child>
+		</child>
+		<child name="black_two_d">
+			<child>card/ranks/black_two_d</child>
+			<child>card/ranks/black_two_l</child>
+			<child>card/ranks/black_two_u</child>
+			<child>card/ranks/black_two_r</child>
+		</child>
+		<child name="black_two_l">
+			<child>card/ranks/black_two_l</child>
+			<child>card/ranks/black_two_u</child>
+			<child>card/ranks/black_two_r</child>
+			<child>card/ranks/black_two_d</child>
+		</child>
+		<child name="black_three_u">
+			<child>card/ranks/black_three_u</child>
+			<child>card/ranks/black_three_r</child>
+			<child>card/ranks/black_three_d</child>
+			<child>card/ranks/black_three_l</child>
+		</child>
+		<child name="black_three_r">
+			<child>card/ranks/black_three_r</child>
+			<child>card/ranks/black_three_d</child>
+			<child>card/ranks/black_three_l</child>
+			<child>card/ranks/black_three_u</child>
+		</child>
+		<child name="black_three_d">
+			<child>card/ranks/black_three_d</child>
+			<child>card/ranks/black_three_l</child>
+			<child>card/ranks/black_three_u</child>
+			<child>card/ranks/black_three_r</child>
+		</child>
+		<child name="black_three_l">
+			<child>card/ranks/black_three_l</child>
+			<child>card/ranks/black_three_u</child>
+			<child>card/ranks/black_three_r</child>
+			<child>card/ranks/black_three_d</child>
+		</child>
+		<child name="black_four_u">
+			<child>card/ranks/black_four_u</child>
+			<child>card/ranks/black_four_r</child>
+			<child>card/ranks/black_four_d</child>
+			<child>card/ranks/black_four_l</child>
+		</child>
+		<child name="black_four_r">
+			<child>card/ranks/black_four_r</child>
+			<child>card/ranks/black_four_d</child>
+			<child>card/ranks/black_four_l</child>
+			<child>card/ranks/black_four_u</child>
+		</child>
+		<child name="black_four_d">
+			<child>card/ranks/black_four_d</child>
+			<child>card/ranks/black_four_l</child>
+			<child>card/ranks/black_four_u</child>
+			<child>card/ranks/black_four_r</child>
+		</child>
+		<child name="black_four_l">
+			<child>card/ranks/black_four_l</child>
+			<child>card/ranks/black_four_u</child>
+			<child>card/ranks/black_four_r</child>
+			<child>card/ranks/black_four_d</child>
+		</child>
+		<child name="black_five_u">
+			<child>card/ranks/black_five_u</child>
+			<child>card/ranks/black_five_r</child>
+			<child>card/ranks/black_five_d</child>
+			<child>card/ranks/black_five_l</child>
+		</child>
+		<child name="black_five_r">
+			<child>card/ranks/black_five_r</child>
+			<child>card/ranks/black_five_d</child>
+			<child>card/ranks/black_five_l</child>
+			<child>card/ranks/black_five_u</child>
+		</child>
+		<child name="black_five_d">
+			<child>card/ranks/black_five_d</child>
+			<child>card/ranks/black_five_l</child>
+			<child>card/ranks/black_five_u</child>
+			<child>card/ranks/black_five_r</child>
+		</child>
+		<child name="black_five_l">
+			<child>card/ranks/black_five_l</child>
+			<child>card/ranks/black_five_u</child>
+			<child>card/ranks/black_five_r</child>
+			<child>card/ranks/black_five_d</child>
+		</child>
+		<child name="black_six_u">
+			<child>card/ranks/black_six_u</child>
+			<child>card/ranks/black_six_r</child>
+			<child>card/ranks/black_six_d</child>
+			<child>card/ranks/black_six_l</child>
+		</child>
+		<child name="black_six_r">
+			<child>card/ranks/black_six_r</child>
+			<child>card/ranks/black_six_d</child>
+			<child>card/ranks/black_six_l</child>
+			<child>card/ranks/black_six_u</child>
+		</child>
+		<child name="black_six_d">
+			<child>card/ranks/black_six_d</child>
+			<child>card/ranks/black_six_l</child>
+			<child>card/ranks/black_six_u</child>
+			<child>card/ranks/black_six_r</child>
+		</child>
+		<child name="black_six_l">
+			<child>card/ranks/black_six_l</child>
+			<child>card/ranks/black_six_u</child>
+			<child>card/ranks/black_six_r</child>
+			<child>card/ranks/black_six_d</child>
+		</child>
+		<child name="black_seven_u">
+			<child>card/ranks/black_seven_u</child>
+			<child>card/ranks/black_seven_r</child>
+			<child>card/ranks/black_seven_d</child>
+			<child>card/ranks/black_seven_l</child>
+		</child>
+		<child name="black_seven_r">
+			<child>card/ranks/black_seven_r</child>
+			<child>card/ranks/black_seven_d</child>
+			<child>card/ranks/black_seven_l</child>
+			<child>card/ranks/black_seven_u</child>
+		</child>
+		<child name="black_seven_d">
+			<child>card/ranks/black_seven_d</child>
+			<child>card/ranks/black_seven_l</child>
+			<child>card/ranks/black_seven_u</child>
+			<child>card/ranks/black_seven_r</child>
+		</child>
+		<child name="black_seven_l">
+			<child>card/ranks/black_seven_l</child>
+			<child>card/ranks/black_seven_u</child>
+			<child>card/ranks/black_seven_r</child>
+			<child>card/ranks/black_seven_d</child>
+		</child>
+		<child name="black_eight_u">
+			<child>card/ranks/black_eight_u</child>
+			<child>card/ranks/black_eight_r</child>
+			<child>card/ranks/black_eight_d</child>
+			<child>card/ranks/black_eight_l</child>
+		</child>
+		<child name="black_eight_r">
+			<child>card/ranks/black_eight_r</child>
+			<child>card/ranks/black_eight_d</child>
+			<child>card/ranks/black_eight_l</child>
+			<child>card/ranks/black_eight_u</child>
+		</child>
+		<child name="black_eight_d">
+			<child>card/ranks/black_eight_d</child>
+			<child>card/ranks/black_eight_l</child>
+			<child>card/ranks/black_eight_u</child>
+			<child>card/ranks/black_eight_r</child>
+		</child>
+		<child name="black_eight_l">
+			<child>card/ranks/black_eight_l</child>
+			<child>card/ranks/black_eight_u</child>
+			<child>card/ranks/black_eight_r</child>
+			<child>card/ranks/black_eight_d</child>
+		</child>
+		<child name="black_nine_u">
+			<child>card/ranks/black_nine_u</child>
+			<child>card/ranks/black_nine_r</child>
+			<child>card/ranks/black_nine_d</child>
+			<child>card/ranks/black_nine_l</child>
+		</child>
+		<child name="black_nine_r">
+			<child>card/ranks/black_nine_r</child>
+			<child>card/ranks/black_nine_d</child>
+			<child>card/ranks/black_nine_l</child>
+			<child>card/ranks/black_nine_u</child>
+		</child>
+		<child name="black_nine_d">
+			<child>card/ranks/black_nine_d</child>
+			<child>card/ranks/black_nine_l</child>
+			<child>card/ranks/black_nine_u</child>
+			<child>card/ranks/black_nine_r</child>
+		</child>
+		<child name="black_nine_l">
+			<child>card/ranks/black_nine_l</child>
+			<child>card/ranks/black_nine_u</child>
+			<child>card/ranks/black_nine_r</child>
+			<child>card/ranks/black_nine_d</child>
+		</child>
+		<child name="black_ten_u">
+			<child>card/ranks/black_ten_u</child>
+			<child>card/ranks/black_ten_r</child>
+			<child>card/ranks/black_ten_d</child>
+			<child>card/ranks/black_ten_l</child>
+		</child>
+		<child name="black_ten_r">
+			<child>card/ranks/black_ten_r</child>
+			<child>card/ranks/black_ten_d</child>
+			<child>card/ranks/black_ten_l</child>
+			<child>card/ranks/black_ten_u</child>
+		</child>
+		<child name="black_ten_d">
+			<child>card/ranks/black_ten_d</child>
+			<child>card/ranks/black_ten_l</child>
+			<child>card/ranks/black_ten_u</child>
+			<child>card/ranks/black_ten_r</child>
+		</child>
+		<child name="black_ten_l">
+			<child>card/ranks/black_ten_l</child>
+			<child>card/ranks/black_ten_u</child>
+			<child>card/ranks/black_ten_r</child>
+			<child>card/ranks/black_ten_d</child>
+		</child>
+		<child name="black_jack_u">
+			<child>card/ranks/black_jack_u</child>
+			<child>card/ranks/black_jack_r</child>
+			<child>card/ranks/black_jack_d</child>
+			<child>card/ranks/black_jack_l</child>
+		</child>
+		<child name="black_jack_r">
+			<child>card/ranks/black_jack_r</child>
+			<child>card/ranks/black_jack_d</child>
+			<child>card/ranks/black_jack_l</child>
+			<child>card/ranks/black_jack_u</child>
+		</child>
+		<child name="black_jack_d">
+			<child>card/ranks/black_jack_d</child>
+			<child>card/ranks/black_jack_l</child>
+			<child>card/ranks/black_jack_u</child>
+			<child>card/ranks/black_jack_r</child>
+		</child>
+		<child name="black_jack_l">
+			<child>card/ranks/black_jack_l</child>
+			<child>card/ranks/black_jack_u</child>
+			<child>card/ranks/black_jack_r</child>
+			<child>card/ranks/black_jack_d</child>
+		</child>
+		<child name="black_queen_u">
+			<child>card/ranks/black_queen_u</child>
+			<child>card/ranks/black_queen_r</child>
+			<child>card/ranks/black_queen_d</child>
+			<child>card/ranks/black_queen_l</child>
+		</child>
+		<child name="black_queen_r">
+			<child>card/ranks/black_queen_r</child>
+			<child>card/ranks/black_queen_d</child>
+			<child>card/ranks/black_queen_l</child>
+			<child>card/ranks/black_queen_u</child>
+		</child>
+		<child name="black_queen_d">
+			<child>card/ranks/black_queen_d</child>
+			<child>card/ranks/black_queen_l</child>
+			<child>card/ranks/black_queen_u</child>
+			<child>card/ranks/black_queen_r</child>
+		</child>
+		<child name="black_queen_l">
+			<child>card/ranks/black_queen_l</child>
+			<child>card/ranks/black_queen_u</child>
+			<child>card/ranks/black_queen_r</child>
+			<child>card/ranks/black_queen_d</child>
+		</child>
+		<child name="black_king_u">
+			<child>card/ranks/black_king_u</child>
+			<child>card/ranks/black_king_r</child>
+			<child>card/ranks/black_king_d</child>
+			<child>card/ranks/black_king_l</child>
+		</child>
+		<child name="black_king_r">
+			<child>card/ranks/black_king_r</child>
+			<child>card/ranks/black_king_d</child>
+			<child>card/ranks/black_king_l</child>
+			<child>card/ranks/black_king_u</child>
+		</child>
+		<child name="black_king_d">
+			<child>card/ranks/black_king_d</child>
+			<child>card/ranks/black_king_l</child>
+			<child>card/ranks/black_king_u</child>
+			<child>card/ranks/black_king_r</child>
+		</child>
+		<child name="black_king_l">
+			<child>card/ranks/black_king_l</child>
+			<child>card/ranks/black_king_u</child>
+			<child>card/ranks/black_king_r</child>
+			<child>card/ranks/black_king_d</child>
+		</child>
+		<child name="black_ace_u">
+			<child>card/ranks/black_ace_u</child>
+			<child>card/ranks/black_ace_r</child>
+			<child>card/ranks/black_ace_d</child>
+			<child>card/ranks/black_ace_l</child>
+		</child>
+		<child name="black_ace_r">
+			<child>card/ranks/black_ace_r</child>
+			<child>card/ranks/black_ace_d</child>
+			<child>card/ranks/black_ace_l</child>
+			<child>card/ranks/black_ace_u</child>
+		</child>
+		<child name="black_ace_d">
+			<child>card/ranks/black_ace_d</child>
+			<child>card/ranks/black_ace_l</child>
+			<child>card/ranks/black_ace_u</child>
+			<child>card/ranks/black_ace_r</child>
+		</child>
+		<child name="black_ace_l">
+			<child>card/ranks/black_ace_l</child>
+			<child>card/ranks/black_ace_u</child>
+			<child>card/ranks/black_ace_r</child>
+			<child>card/ranks/black_ace_d</child>
+		</child>
+		<child name="red_two_u">
+			<child>card/ranks/red_two_u</child>
+			<child>card/ranks/red_two_r</child>
+			<child>card/ranks/red_two_d</child>
+			<child>card/ranks/red_two_l</child>
+		</child>
+		<child name="red_two_r">
+			<child>card/ranks/red_two_r</child>
+			<child>card/ranks/red_two_d</child>
+			<child>card/ranks/red_two_l</child>
+			<child>card/ranks/red_two_u</child>
+		</child>
+		<child name="red_two_d">
+			<child>card/ranks/red_two_d</child>
+			<child>card/ranks/red_two_l</child>
+			<child>card/ranks/red_two_u</child>
+			<child>card/ranks/red_two_r</child>
+		</child>
+		<child name="red_two_l">
+			<child>card/ranks/red_two_l</child>
+			<child>card/ranks/red_two_u</child>
+			<child>card/ranks/red_two_r</child>
+			<child>card/ranks/red_two_d</child>
+		</child>
+		<child name="red_three_u">
+			<child>card/ranks/red_three_u</child>
+			<child>card/ranks/red_three_r</child>
+			<child>card/ranks/red_three_d</child>
+			<child>card/ranks/red_three_l</child>
+		</child>
+		<child name="red_three_r">
+			<child>card/ranks/red_three_r</child>
+			<child>card/ranks/red_three_d</child>
+			<child>card/ranks/red_three_l</child>
+			<child>card/ranks/red_three_u</child>
+		</child>
+		<child name="red_three_d">
+			<child>card/ranks/red_three_d</child>
+			<child>card/ranks/red_three_l</child>
+			<child>card/ranks/red_three_u</child>
+			<child>card/ranks/red_three_r</child>
+		</child>
+		<child name="red_three_l">
+			<child>card/ranks/red_three_l</child>
+			<child>card/ranks/red_three_u</child>
+			<child>card/ranks/red_three_r</child>
+			<child>card/ranks/red_three_d</child>
+		</child>
+		<child name="red_four_u">
+			<child>card/ranks/red_four_u</child>
+			<child>card/ranks/red_four_r</child>
+			<child>card/ranks/red_four_d</child>
+			<child>card/ranks/red_four_l</child>
+		</child>
+		<child name="red_four_r">
+			<child>card/ranks/red_four_r</child>
+			<child>card/ranks/red_four_d</child>
+			<child>card/ranks/red_four_l</child>
+			<child>card/ranks/red_four_u</child>
+		</child>
+		<child name="red_four_d">
+			<child>card/ranks/red_four_d</child>
+			<child>card/ranks/red_four_l</child>
+			<child>card/ranks/red_four_u</child>
+			<child>card/ranks/red_four_r</child>
+		</child>
+		<child name="red_four_l">
+			<child>card/ranks/red_four_l</child>
+			<child>card/ranks/red_four_u</child>
+			<child>card/ranks/red_four_r</child>
+			<child>card/ranks/red_four_d</child>
+		</child>
+		<child name="red_five_u">
+			<child>card/ranks/red_five_u</child>
+			<child>card/ranks/red_five_r</child>
+			<child>card/ranks/red_five_d</child>
+			<child>card/ranks/red_five_l</child>
+		</child>
+		<child name="red_five_r">
+			<child>card/ranks/red_five_r</child>
+			<child>card/ranks/red_five_d</child>
+			<child>card/ranks/red_five_l</child>
+			<child>card/ranks/red_five_u</child>
+		</child>
+		<child name="red_five_d">
+			<child>card/ranks/red_five_d</child>
+			<child>card/ranks/red_five_l</child>
+			<child>card/ranks/red_five_u</child>
+			<child>card/ranks/red_five_r</child>
+		</child>
+		<child name="red_five_l">
+			<child>card/ranks/red_five_l</child>
+			<child>card/ranks/red_five_u</child>
+			<child>card/ranks/red_five_r</child>
+			<child>card/ranks/red_five_d</child>
+		</child>
+		<child name="red_six_u">
+			<child>card/ranks/red_six_u</child>
+			<child>card/ranks/red_six_r</child>
+			<child>card/ranks/red_six_d</child>
+			<child>card/ranks/red_six_l</child>
+		</child>
+		<child name="red_six_r">
+			<child>card/ranks/red_six_r</child>
+			<child>card/ranks/red_six_d</child>
+			<child>card/ranks/red_six_l</child>
+			<child>card/ranks/red_six_u</child>
+		</child>
+		<child name="red_six_d">
+			<child>card/ranks/red_six_d</child>
+			<child>card/ranks/red_six_l</child>
+			<child>card/ranks/red_six_u</child>
+			<child>card/ranks/red_six_r</child>
+		</child>
+		<child name="red_six_l">
+			<child>card/ranks/red_six_l</child>
+			<child>card/ranks/red_six_u</child>
+			<child>card/ranks/red_six_r</child>
+			<child>card/ranks/red_six_d</child>
+		</child>
+		<child name="red_seven_u">
+			<child>card/ranks/red_seven_u</child>
+			<child>card/ranks/red_seven_r</child>
+			<child>card/ranks/red_seven_d</child>
+			<child>card/ranks/red_seven_l</child>
+		</child>
+		<child name="red_seven_r">
+			<child>card/ranks/red_seven_r</child>
+			<child>card/ranks/red_seven_d</child>
+			<child>card/ranks/red_seven_l</child>
+			<child>card/ranks/red_seven_u</child>
+		</child>
+		<child name="red_seven_d">
+			<child>card/ranks/red_seven_d</child>
+			<child>card/ranks/red_seven_l</child>
+			<child>card/ranks/red_seven_u</child>
+			<child>card/ranks/red_seven_r</child>
+		</child>
+		<child name="red_seven_l">
+			<child>card/ranks/red_seven_l</child>
+			<child>card/ranks/red_seven_u</child>
+			<child>card/ranks/red_seven_r</child>
+			<child>card/ranks/red_seven_d</child>
+		</child>
+		<child name="red_eight_u">
+			<child>card/ranks/red_eight_u</child>
+			<child>card/ranks/red_eight_r</child>
+			<child>card/ranks/red_eight_d</child>
+			<child>card/ranks/red_eight_l</child>
+		</child>
+		<child name="red_eight_r">
+			<child>card/ranks/red_eight_r</child>
+			<child>card/ranks/red_eight_d</child>
+			<child>card/ranks/red_eight_l</child>
+			<child>card/ranks/red_eight_u</child>
+		</child>
+		<child name="red_eight_d">
+			<child>card/ranks/red_eight_d</child>
+			<child>card/ranks/red_eight_l</child>
+			<child>card/ranks/red_eight_u</child>
+			<child>card/ranks/red_eight_r</child>
+		</child>
+		<child name="red_eight_l">
+			<child>card/ranks/red_eight_l</child>
+			<child>card/ranks/red_eight_u</child>
+			<child>card/ranks/red_eight_r</child>
+			<child>card/ranks/red_eight_d</child>
+		</child>
+		<child name="red_nine_u">
+			<child>card/ranks/red_nine_u</child>
+			<child>card/ranks/red_nine_r</child>
+			<child>card/ranks/red_nine_d</child>
+			<child>card/ranks/red_nine_l</child>
+		</child>
+		<child name="red_nine_r">
+			<child>card/ranks/red_nine_r</child>
+			<child>card/ranks/red_nine_d</child>
+			<child>card/ranks/red_nine_l</child>
+			<child>card/ranks/red_nine_u</child>
+		</child>
+		<child name="red_nine_d">
+			<child>card/ranks/red_nine_d</child>
+			<child>card/ranks/red_nine_l</child>
+			<child>card/ranks/red_nine_u</child>
+			<child>card/ranks/red_nine_r</child>
+		</child>
+		<child name="red_nine_l">
+			<child>card/ranks/red_nine_l</child>
+			<child>card/ranks/red_nine_u</child>
+			<child>card/ranks/red_nine_r</child>
+			<child>card/ranks/red_nine_d</child>
+		</child>
+		<child name="red_ten_u">
+			<child>card/ranks/red_ten_u</child>
+			<child>card/ranks/red_ten_r</child>
+			<child>card/ranks/red_ten_d</child>
+			<child>card/ranks/red_ten_l</child>
+		</child>
+		<child name="red_ten_r">
+			<child>card/ranks/red_ten_r</child>
+			<child>card/ranks/red_ten_d</child>
+			<child>card/ranks/red_ten_l</child>
+			<child>card/ranks/red_ten_u</child>
+		</child>
+		<child name="red_ten_d">
+			<child>card/ranks/red_ten_d</child>
+			<child>card/ranks/red_ten_l</child>
+			<child>card/ranks/red_ten_u</child>
+			<child>card/ranks/red_ten_r</child>
+		</child>
+		<child name="red_ten_l">
+			<child>card/ranks/red_ten_l</child>
+			<child>card/ranks/red_ten_u</child>
+			<child>card/ranks/red_ten_r</child>
+			<child>card/ranks/red_ten_d</child>
+		</child>
+		<child name="red_jack_u">
+			<child>card/ranks/red_jack_u</child>
+			<child>card/ranks/red_jack_r</child>
+			<child>card/ranks/red_jack_d</child>
+			<child>card/ranks/red_jack_l</child>
+		</child>
+		<child name="red_jack_r">
+			<child>card/ranks/red_jack_r</child>
+			<child>card/ranks/red_jack_d</child>
+			<child>card/ranks/red_jack_l</child>
+			<child>card/ranks/red_jack_u</child>
+		</child>
+		<child name="red_jack_d">
+			<child>card/ranks/red_jack_d</child>
+			<child>card/ranks/red_jack_l</child>
+			<child>card/ranks/red_jack_u</child>
+			<child>card/ranks/red_jack_r</child>
+		</child>
+		<child name="red_jack_l">
+			<child>card/ranks/red_jack_l</child>
+			<child>card/ranks/red_jack_u</child>
+			<child>card/ranks/red_jack_r</child>
+			<child>card/ranks/red_jack_d</child>
+		</child>
+		<child name="red_queen_u">
+			<child>card/ranks/red_queen_u</child>
+			<child>card/ranks/red_queen_r</child>
+			<child>card/ranks/red_queen_d</child>
+			<child>card/ranks/red_queen_l</child>
+		</child>
+		<child name="red_queen_r">
+			<child>card/ranks/red_queen_r</child>
+			<child>card/ranks/red_queen_d</child>
+			<child>card/ranks/red_queen_l</child>
+			<child>card/ranks/red_queen_u</child>
+		</child>
+		<child name="red_queen_d">
+			<child>card/ranks/red_queen_d</child>
+			<child>card/ranks/red_queen_l</child>
+			<child>card/ranks/red_queen_u</child>
+			<child>card/ranks/red_queen_r</child>
+		</child>
+		<child name="red_queen_l">
+			<child>card/ranks/red_queen_l</child>
+			<child>card/ranks/red_queen_u</child>
+			<child>card/ranks/red_queen_r</child>
+			<child>card/ranks/red_queen_d</child>
+		</child>
+		<child name="red_king_u">
+			<child>card/ranks/red_king_u</child>
+			<child>card/ranks/red_king_r</child>
+			<child>card/ranks/red_king_d</child>
+			<child>card/ranks/red_king_l</child>
+		</child>
+		<child name="red_king_r">
+			<child>card/ranks/red_king_r</child>
+			<child>card/ranks/red_king_d</child>
+			<child>card/ranks/red_king_l</child>
+			<child>card/ranks/red_king_u</child>
+		</child>
+		<child name="red_king_d">
+			<child>card/ranks/red_king_d</child>
+			<child>card/ranks/red_king_l</child>
+			<child>card/ranks/red_king_u</child>
+			<child>card/ranks/red_king_r</child>
+		</child>
+		<child name="red_king_l">
+			<child>card/ranks/red_king_l</child>
+			<child>card/ranks/red_king_u</child>
+			<child>card/ranks/red_king_r</child>
+			<child>card/ranks/red_king_d</child>
+		</child>
+		<child name="red_ace_u">
+			<child>card/ranks/red_ace_u</child>
+			<child>card/ranks/red_ace_r</child>
+			<child>card/ranks/red_ace_d</child>
+			<child>card/ranks/red_ace_l</child>
+		</child>
+		<child name="red_ace_r">
+			<child>card/ranks/red_ace_r</child>
+			<child>card/ranks/red_ace_d</child>
+			<child>card/ranks/red_ace_l</child>
+			<child>card/ranks/red_ace_u</child>
+		</child>
+		<child name="red_ace_d">
+			<child>card/ranks/red_ace_d</child>
+			<child>card/ranks/red_ace_l</child>
+			<child>card/ranks/red_ace_u</child>
+			<child>card/ranks/red_ace_r</child>
+		</child>
+		<child name="red_ace_l">
+			<child>card/ranks/red_ace_l</child>
+			<child>card/ranks/red_ace_u</child>
+			<child>card/ranks/red_ace_r</child>
+			<child>card/ranks/red_ace_d</child>
+		</child>
+	</child>
+	<child name="spin_suit">
+		<frames>
+			<child>7</child>
+			<child>7</child>
+			<child>7</child>
+			<child>7</child>
+		</frames>
+		<child name="spades_u">
+			<child>card/suits/spades_u</child>
+			<child>card/suits/spades_r</child>
+			<child>card/suits/spades_d</child>
+			<child>card/suits/spades_l</child>
+		</child>
+		<child name="spades_r">
+			<child>card/suits/spades_r</child>
+			<child>card/suits/spades_d</child>
+			<child>card/suits/spades_l</child>
+			<child>card/suits/spades_u</child>
+		</child>
+		<child name="spades_d">
+			<child>card/suits/spades_d</child>
+			<child>card/suits/spades_l</child>
+			<child>card/suits/spades_u</child>
+			<child>card/suits/spades_r</child>
+		</child>
+		<child name="spades_l">
+			<child>card/suits/spades_l</child>
+			<child>card/suits/spades_u</child>
+			<child>card/suits/spades_r</child>
+			<child>card/suits/spades_d</child>
+		</child>
+		<child name="diamonds_u">
+			<child>card/suits/diamonds_u</child>
+			<child>card/suits/diamonds_r</child>
+			<child>card/suits/diamonds_d</child>
+			<child>card/suits/diamonds_l</child>
+		</child>
+		<child name="diamonds_r">
+			<child>card/suits/diamonds_r</child>
+			<child>card/suits/diamonds_d</child>
+			<child>card/suits/diamonds_l</child>
+			<child>card/suits/diamonds_u</child>
+		</child>
+		<child name="diamonds_d">
+			<child>card/suits/diamonds_d</child>
+			<child>card/suits/diamonds_l</child>
+			<child>card/suits/diamonds_u</child>
+			<child>card/suits/diamonds_r</child>
+		</child>
+		<child name="diamonds_l">
+			<child>card/suits/diamonds_l</child>
+			<child>card/suits/diamonds_u</child>
+			<child>card/suits/diamonds_r</child>
+			<child>card/suits/diamonds_d</child>
+		</child>
+		<child name="clubs_u">
+			<child>card/suits/clubs_u</child>
+			<child>card/suits/clubs_r</child>
+			<child>card/suits/clubs_d</child>
+			<child>card/suits/clubs_l</child>
+		</child>
+		<child name="clubs_r">
+			<child>card/suits/clubs_r</child>
+			<child>card/suits/clubs_d</child>
+			<child>card/suits/clubs_l</child>
+			<child>card/suits/clubs_u</child>
+		</child>
+		<child name="clubs_d">
+			<child>card/suits/clubs_d</child>
+			<child>card/suits/clubs_l</child>
+			<child>card/suits/clubs_u</child>
+			<child>card/suits/clubs_r</child>
+		</child>
+		<child name="clubs_l">
+			<child>card/suits/clubs_l</child>
+			<child>card/suits/clubs_u</child>
+			<child>card/suits/clubs_r</child>
+			<child>card/suits/clubs_d</child>
+		</child>
+		<child name="hearts_u">
+			<child>card/suits/hearts_u</child>
+			<child>card/suits/hearts_r</child>
+			<child>card/suits/hearts_d</child>
+			<child>card/suits/hearts_l</child>
+		</child>
+		<child name="hearts_r">
+			<child>card/suits/hearts_r</child>
+			<child>card/suits/hearts_d</child>
+			<child>card/suits/hearts_l</child>
+			<child>card/suits/hearts_u</child>
+		</child>
+		<child name="hearts_d">
+			<child>card/suits/hearts_d</child>
+			<child>card/suits/hearts_l</child>
+			<child>card/suits/hearts_u</child>
+			<child>card/suits/hearts_r</child>
+		</child>
+		<child name="hearts_l">
+			<child>card/suits/hearts_l</child>
+			<child>card/suits/hearts_u</child>
+			<child>card/suits/hearts_r</child>
+			<child>card/suits/hearts_d</child>
+		</child>
+	</child>
+	<child name="spin_card">
+		<frames>
+			<child>7</child>
+			<child>7</child>
+			<child>7</child>
+			<child>7</child>
+		</frames>
+		<child name="upright">
+			<child>card/card_upright</child>
+			<child>card/card_sideways</child>
+			<child>card/card_upright</child>
+			<child>card/card_sideways</child>
+		</child>
+		<child name="sideways">
+			<child>card/card_sideways</child>
+			<child>card/card_upright</child>
+			<child>card/card_sideways</child>
+			<child>card/card_upright</child>
+		</child>
+	</child>
+</Animations>
