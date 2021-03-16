@@ -43,5 +43,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\CardsDevelopment\CardsDevelopment\CardsDevelopment.csproj" />
     <ProjectReference Include="..\..\ControlsHandler\ControlsHandler\ControlsHandler.csproj" />
+    <ProjectReference Include="..\..\SimpleDungeonGenerator\SimpleDungeonGenerator\SimpleDungeonGenerator.csproj" />
   </ItemGroup>
 </Project>

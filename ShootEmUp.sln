@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CardsDevelopment", "..\Card
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ControlsHandler", "..\ControlsHandler\ControlsHandler\ControlsHandler.csproj", "{F929E22B-CE1C-4E6D-8495-B51CBADBE7DC}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleDungeonGenerator", "..\SimpleDungeonGenerator\SimpleDungeonGenerator\SimpleDungeonGenerator.csproj", "{A6ADA6D3-2BFE-4A61-947B-5395F4EB8995}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{F929E22B-CE1C-4E6D-8495-B51CBADBE7DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F929E22B-CE1C-4E6D-8495-B51CBADBE7DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F929E22B-CE1C-4E6D-8495-B51CBADBE7DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6ADA6D3-2BFE-4A61-947B-5395F4EB8995}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6ADA6D3-2BFE-4A61-947B-5395F4EB8995}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6ADA6D3-2BFE-4A61-947B-5395F4EB8995}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6ADA6D3-2BFE-4A61-947B-5395F4EB8995}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

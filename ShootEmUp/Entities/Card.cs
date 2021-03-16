@@ -20,9 +20,8 @@ namespace ShootEmUp.Entities
         public TraditionalDeck card;
         string facing;
 
-        public List<HurtBox> attacking;
+        //public List<HurtBox> attacking;
         public CollisionBox stop;
-        public DamageBox hurtable;
 
         public float[] posPointer;
         public float[] speed;
@@ -35,9 +34,9 @@ namespace ShootEmUp.Entities
 
         public Card(float[] dir, float[] pos, string direction, TraditionalDeck card)
         {
-            attacking = new List<HurtBox>();
+            //attacking = new List<HurtBox>();
             stop = new CollisionBox(new float[] { -7, -7 }, pos, new float[] { 14, 14 });
-            hurtable = new DamageBox(dir, 0, new float[] { -7, -7 }, pos, new float[] { 14, 14 });
+            //hurtable = new DamageBox(dir, 0, new float[] { -7, -7 }, pos, new float[] { 14, 14 });
 
             this.card = card;
 
@@ -170,6 +169,10 @@ namespace ShootEmUp.Entities
         {
             List<TextureDescription> texs = new List<TextureDescription>();
             {
+                texs.Add(ToTexDesc(currCardAnimation));
+                texs.Add(ToTexDesc(currSuitAnimation));
+                texs.Add(ToTexDesc(currRankAnimation));
+                /** /
                 int[] currAnimSize = currCardAnimation.GetSizeOfCurrentAnimation();
                 Point pos = new Point(
                     (int)(stop.pos[0] + stop.offset[0] + (stop.size[0] / 2) - (currAnimSize[0] / 2)),
@@ -196,9 +199,22 @@ namespace ShootEmUp.Entities
                 size = new Point((int)currAnimSize[0], (int)currAnimSize[1]);
                 bound = new Rectangle(pos, size);
                 texs.Add(new TextureDescription(currRankAnimation.GetTexture(), bound, Color.White, 10));
+                /**/
             }
 
             return texs;
+        }
+
+        public TextureDescription ToTexDesc(Animation animation)
+        {
+            int [] currAnimSize = animation.GetSizeOfCurrentAnimation();
+            Point pos = new Point(
+                 (int)(stop.pos[0] + stop.offset[0] + (stop.size[0] / 2) - (currAnimSize[0] / 2)),
+                 (int)(stop.pos[1] + stop.offset[1] + (stop.size[1] / 2) - (currAnimSize[1] / 2))
+             );
+            Point size = new Point((int)currAnimSize[0], (int)currAnimSize[1]);
+            Rectangle bound = new Rectangle(pos, size);
+            return new TextureDescription(animation.GetTexture(), bound, Color.White, 10);
         }
 
         public List<CollisionBox> GetCollisionHitboxes()
@@ -215,7 +231,7 @@ namespace ShootEmUp.Entities
         {
             List<DamageBox> temp = new List<DamageBox>();
             {
-                temp.Add(hurtable);
+                // temp.Add(hurtable);
             }
 
             return temp;
@@ -223,7 +239,7 @@ namespace ShootEmUp.Entities
 
         public List<HurtBox> GetHurtboxes()
         {
-            return attacking;
+            return new List<HurtBox>();//attacking;
         }
 
         public static void LoadAnimations(ContentManager Content)

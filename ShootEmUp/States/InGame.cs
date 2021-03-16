@@ -19,11 +19,11 @@ namespace ShootEmUp.States
 
         readonly Camera camera;
 
-        readonly List<Hitbox> windowBorders;
-
         readonly Deck<TraditionalDeck> MasterDeck;
 
         Particle[] deckAnimations;
+
+        public Map map;
 
         uint pause;
 
@@ -46,14 +46,6 @@ namespace ShootEmUp.States
                 size = new int[] { SEU.instance.Window.ClientBounds.Width, SEU.instance.Window.ClientBounds.Height };
             }
 
-            windowBorders = new List<Hitbox>();
-            {
-                //windowBorders.Add(new Hitbox(new float[] { -1, -1 }, new float[] { 0, 0 }, new float[] { 1, 2 + size[1] }));
-                windowBorders.Add(new Hitbox(new float[] { -1, -1 }, new float[] { 0, 0 }, new float[] { 2 + size[0], 1 }));
-                windowBorders.Add(new Hitbox(new float[] { 0, -1 }, new float[] { size[0], 0 }, new float[] { 1, 2 + size[1] }));
-                windowBorders.Add(new Hitbox(new float[] { -1, 0 }, new float[] { 0, size[1] }, new float[] { 2 + size[0], 1 }));
-            }
-
             // Initalize camera with position
             camera = new Camera(size, player, 0.2f);
 
@@ -70,6 +62,8 @@ namespace ShootEmUp.States
             CreateDeckAnimation();
 
             this.pause = pause;
+
+            map = new Map();
         }
 
         public void Update()
@@ -114,9 +108,10 @@ namespace ShootEmUp.States
                 td.AddRange(ent.GetTextures());
             }
 
-            foreach (Hitbox hb in windowBorders)
+            // Get all entity textures
+            foreach (CollisionBox cb in map.walls)
             {
-                td.Add(new TextureDescription(hb));
+                td.Add(new TextureDescription(cb));
             }
 
             // Get position of texture in screen
@@ -142,7 +137,7 @@ namespace ShootEmUp.States
         // Whether hitbox crosses anywhere
         public Hitbox GetCrosses(Hitbox hb)
         {
-            foreach (Hitbox hitbox in windowBorders)
+            foreach (Hitbox hitbox in map.walls)
             {
                 if (hitbox.Crosses(hb))
                 {
@@ -156,7 +151,7 @@ namespace ShootEmUp.States
         // Whether hitbox crosses exclusively anywhere
         public Hitbox GetCrossesEx(Hitbox hb)
         {
-            foreach (Hitbox hitbox in windowBorders)
+            foreach (Hitbox hitbox in map.walls)
             {
                 if (hitbox.CrossesExclusive(hb))
                 {

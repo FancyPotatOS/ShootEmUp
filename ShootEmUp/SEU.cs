@@ -77,8 +77,9 @@ namespace ShootEmUp
                 Content.Load<Texture2D>("down"),
                 Content.Load<Texture2D>("left"), 
                 Content.Load<Texture2D>("right"),
-                Content.Load<Texture2D>("run"), 
-                Content.Load<Texture2D>("shoot") 
+                Content.Load<Texture2D>("run"),
+                Content.Load<Texture2D>("shoot"),
+                Content.Load<Texture2D>("run")
             };
 
             Player.DEBUGbox = Content.Load<Texture2D>("box");
@@ -104,6 +105,7 @@ namespace ShootEmUp
                 defaults.Add(new StringTypePair<Keys>("right", Keys.D));
                 defaults.Add(new StringTypePair<Keys>("run", Keys.LeftShift));
                 defaults.Add(new StringTypePair<Keys>("shoot", Keys.Space));
+                defaults.Add(new StringTypePair<Keys>("reset", Keys.T));
             }
             KeyboardController.SetDefault(defaults);
         }

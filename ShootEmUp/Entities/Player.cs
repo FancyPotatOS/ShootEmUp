@@ -12,6 +12,7 @@ using CardsDevelopment;
 using System.Xml;
 using Microsoft.Xna.Framework.Content;
 using System.Text.RegularExpressions;
+using ShootEmUp.States;
 
 namespace ShootEmUp.Entities
 {
@@ -172,6 +173,14 @@ namespace ShootEmUp.Entities
             else
                 // No longer pressing shoot button
                 hasShot = false;
+
+            if (controller.IsPressed("reset"))
+            {
+                if (SEU.instance.GLOBALSTATE is InGame ig)
+                {
+                    ig.map = new Map();
+                }
+            }
 
             // If touching a card
             List<IEntity> cardsTouching = SEU.instance.GLOBALSTATE.FindEntities(ent => 
