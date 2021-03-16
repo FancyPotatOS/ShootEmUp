@@ -72,7 +72,14 @@ namespace ShootEmUp
 
             IController.Load(Content);
 
-            udlr = new Texture2D[] { Content.Load<Texture2D>("up"), Content.Load<Texture2D>("down"), Content.Load<Texture2D>("left"), Content.Load<Texture2D>("right"), Content.Load<Texture2D>("run"), Content.Load<Texture2D>("shoot") };
+            udlr = new Texture2D[] { 
+                Content.Load<Texture2D>("up"), 
+                Content.Load<Texture2D>("down"),
+                Content.Load<Texture2D>("left"), 
+                Content.Load<Texture2D>("right"),
+                Content.Load<Texture2D>("run"), 
+                Content.Load<Texture2D>("shoot") 
+            };
 
             Player.DEBUGbox = Content.Load<Texture2D>("box");
 
@@ -87,7 +94,18 @@ namespace ShootEmUp
             _graphics.ApplyChanges();
             player = new Player(null, new float[] { 250, 250 }, null);
 
-            GLOBALSTATE = new InGame(player);
+            GLOBALSTATE = new InGame(player, 10);
+
+            List<StringTypePair<Keys>> defaults = new List<StringTypePair<Keys>>();
+            {
+                defaults.Add(new StringTypePair<Keys>("up", Keys.W));
+                defaults.Add(new StringTypePair<Keys>("down", Keys.S));
+                defaults.Add(new StringTypePair<Keys>("left", Keys.A));
+                defaults.Add(new StringTypePair<Keys>("right", Keys.D));
+                defaults.Add(new StringTypePair<Keys>("run", Keys.LeftShift));
+                defaults.Add(new StringTypePair<Keys>("shoot", Keys.Space));
+            }
+            KeyboardController.SetDefault(defaults);
         }
 
         protected override void Update(GameTime gameTime)

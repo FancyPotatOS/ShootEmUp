@@ -25,7 +25,9 @@ namespace ShootEmUp.States
 
         Particle[] deckAnimations;
 
-        public InGame(Player player)
+        uint pause;
+
+        public InGame(Player player, uint pause)
         {
             entities = new List<IEntity>();
             {
@@ -66,10 +68,15 @@ namespace ShootEmUp.States
 
             // Create top card animations
             CreateDeckAnimation();
+
+            this.pause = pause;
         }
 
         public void Update()
         {
+            if (pause > 0)
+            { pause--; return; }
+
             // Add entities saved to add
             entities.AddRange(toAdd);
             // Reset list
@@ -211,7 +218,7 @@ namespace ShootEmUp.States
             {
                 // Amount design shifts
                 int shift = 10;
-                int boxSize = 40;
+                int boxSize = 60;
 
                 float[] offset = new float[] { 10 + (i * shift), -(10 + ((max - 1) * shift) + (boxSize)) + (i * shift) };
                 float[] pos = new float[] { 0, camera.screenSize[1] };
@@ -283,7 +290,7 @@ namespace ShootEmUp.States
                 {
                     // Amount design shifts
                     int shift = 10;
-                    int boxSize = 40;
+                    int boxSize = 60;
 
                     float[] offset = new float[] { 10 + (i * shift), -(10 + ((max - 1) * shift) + (boxSize)) + (i * shift) };
                     float[] pos = new float[] { 0, camera.screenSize[1] };

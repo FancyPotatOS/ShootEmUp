@@ -79,6 +79,16 @@ namespace ShootEmUp
             if (GetSign(vel[1]) * vel[1] < toZero)
             { vel[1] = 0; }
 
+            // Update the textures
+            foreach (Animation anim in animations)
+            {
+                anim.Update();
+
+                // Loop if expired
+                if (anim.Expired())
+                    anim.Reset();
+            }
+
             // Whether the lifetime has run out
             return lifetime.CanUse(); 
         }
