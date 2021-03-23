@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using ShootEmUp.Animations;
 using ShootEmUp.Entities;
 using ShootEmUp.Hitboxes;
 using ShootEmUp.States;
@@ -27,14 +28,16 @@ namespace ShootEmUp
 
         List<Animation> animations;
 
-        public Particle(float[] offset, float[] size, float[] locationPointer, float[] vel, float[] decc, float toZero, uint lifetime, bool useCollisionBox, List<Animation> anims)
+        int[] drawSize;
+
+        public Particle(float[] offset, float[] size, float[] locationPointer, float[] vel, float[] decc, float toZero, uint lifetime, bool useCollisionBox, List<Animation> anims, int[] drawSize)
         {
             // Ensure decceleration is above 0
             decc[0] = Math.Max(decc[0], 0);
             decc[1] = Math.Max(decc[1], 0);
 
             // Ensure threshold is above 0
-            toZero = Math.Max(toZero, -toZero);
+            this.toZero = toZero;
 
             // Fill in fields
             locPointer = locationPointer;
@@ -51,6 +54,8 @@ namespace ShootEmUp
 
             // Create lifetimme
             this.lifetime = new Cooldown(lifetime, lifetime);
+
+            this.drawSize = drawSize;
         }
 
         // Returns whether to delete
@@ -105,7 +110,7 @@ namespace ShootEmUp
             foreach (Animation anim in animations)
             {
                 // Get texture from animation
-                int[] currAnimSize = anim.GetSizeOfCurrentAnimation();
+                int[] currAnimSize = drawSize;
                 Point pos = new Point(
                     (int)(blocking.pos[0] + blocking.offset[0] + (blocking.size[0] / 2) - (currAnimSize[0] / 2)),
                     (int)(blocking.pos[1] + blocking.offset[1] + blocking.size[1] - currAnimSize[1])

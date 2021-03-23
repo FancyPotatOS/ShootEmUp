@@ -27,6 +27,8 @@ namespace ShootEmUp.States
 
         uint pause;
 
+        int[] screenSize;
+
         public InGame(Player player, uint pause)
         {
             entities = new List<IEntity>();
@@ -36,18 +38,17 @@ namespace ShootEmUp.States
             toRemove = new List<IEntity>();
             toAdd = new List<IEntity>();
 
-            int[] size;
             if (SEU.instance.isFullScreen)
-            { 
-                size = new int[] { GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height }; 
+            {
+                screenSize = new int[] { GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height }; 
             }
             else
             {
-                size = new int[] { SEU.instance.Window.ClientBounds.Width, SEU.instance.Window.ClientBounds.Height };
+                screenSize = new int[] { SEU.instance.Window.ClientBounds.Width, SEU.instance.Window.ClientBounds.Height };
             }
 
             // Initalize camera with position
-            camera = new Camera(size, player, 0.2f);
+            camera = new Camera(screenSize, player, 0.2f);
 
             MasterDeck = Deck<TraditionalDeck>.MakeDeck();
             for (int i = 0; i < 10; i++)
@@ -66,7 +67,7 @@ namespace ShootEmUp.States
             map = new Map();
 
             // Add new blob that targets player
-            Blob temp = new Blob(new float[] { 450, 450 }, "r", ent => ent.GetType().Equals(typeof(Player)), Color.PowderBlue);
+            Blob temp = new Blob(new float[] { 450, 450 }, "r", ent => ent.GetType().Equals(typeof(Player)), Color.DarkBlue);
             entities.Add(temp);
         }
 
@@ -218,8 +219,9 @@ namespace ShootEmUp.States
                 // Amount design shifts
                 int shift = 10;
                 int boxSize = 60;
+                int initOffset = 40;
 
-                float[] offset = new float[] { 10 + (i * shift), -(10 + ((max - 1) * shift) + (boxSize)) + (i * shift) };
+                float[] offset = new float[] { initOffset + (i * shift), -(initOffset + ((max - 1) * shift) + (boxSize)) + (i * shift) };
                 float[] pos = new float[] { 0, camera.screenSize[1] };
                 float[] s = new float[] { boxSize, boxSize };
 
@@ -233,7 +235,7 @@ namespace ShootEmUp.States
                     anims.AddRange(GetCardAnimation(MasterDeck.PeekFromTop(), "u"));
                 }
 
-                deckAnimations[i] = new Particle(offset, s, pos, new float[] { 0, 0 }, new float[] { 0, 0 }, 100000, uint.MaxValue, false, anims);
+                deckAnimations[i] = new Particle(offset, s, pos, new float[] { 0, 0 }, new float[] { 0, 0 }, 100000, uint.MaxValue, false, anims, new int[] { screenSize[0] / 18, (int)(1.22 * screenSize[0] / 18) });
             }
         }
 
@@ -288,10 +290,11 @@ namespace ShootEmUp.States
                 for (int i = 0; i < max; i++)
                 {
                     // Amount design shifts
-                    int shift = 10;
+                    int shift = 30;
                     int boxSize = 60;
+                    int initOffset = 40;
 
-                    float[] offset = new float[] { 10 + (i * shift), -(10 + ((max - 1) * shift) + (boxSize)) + (i * shift) };
+                    float[] offset = new float[] { initOffset + (i * shift), -(initOffset + ((max - 1) * shift) + (boxSize)) + (i * shift) };
                     float[] pos = new float[] { 0, camera.screenSize[1] };
                     float[] s = new float[] { boxSize, boxSize };
 
@@ -305,7 +308,7 @@ namespace ShootEmUp.States
                         anims.AddRange(topCard);
                     }
 
-                    deckAnimations[i] = new Particle(offset, s, pos, new float[] { 0, 0 }, new float[] { 0, 0 }, 100000, uint.MaxValue, false, anims);
+                    deckAnimations[i] = new Particle(offset, s, pos, new float[] { 0, 0 }, new float[] { 0, 0 }, 100000, uint.MaxValue, false, anims, new int[] { screenSize[0] / 18, (int)(1.22 * screenSize[0] / 18) });
                 }
             }
         }

@@ -37,6 +37,9 @@ namespace ShootEmUp.Entities
         public CollisionBox blocking;
         public List<DamageBox> attacking;
 
+        // Size to draw animations
+        Hitbox drawSize;
+
         public string facing;
         public int facingChange;
         bool running;
@@ -63,6 +66,8 @@ namespace ShootEmUp.Entities
             // Create deck of cards
             MasterDeck = masterDeck;
             shotCooldown = new Cooldown(0, 20);
+
+            drawSize = new Hitbox(new float[] { 0, 0 }, new float[] { 0, 0 }, new float[] { 68, 105 });
         }
 
         public void Update()
@@ -194,7 +199,7 @@ namespace ShootEmUp.Entities
             List<TextureDescription> td = new List<TextureDescription>();
 
             // Get texture from animation
-            int[] currAnimSize = currAnimation.GetSizeOfCurrentAnimation();
+            int[] currAnimSize = new int[] { (int)drawSize.size[0], (int)drawSize.size[1] };
             Point pos = new Point(
                 (int)(blocking.pos[0] + blocking.offset[0] + (blocking.size[0] / 2) - (currAnimSize[0] / 2)), 
                 (int)(blocking.pos[1] + blocking.offset[1] + blocking.size[1] - currAnimSize[1])

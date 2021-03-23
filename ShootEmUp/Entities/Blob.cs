@@ -19,22 +19,37 @@ namespace ShootEmUp.Entities
 {
     public class Blob : AttemptMove, IEntity
     {
+        // Color of slime
         Color color;
 
+        // Timing for hops
         Timing<int> movementTimings;
 
+        // Animation storage
         static Dictionary<string, Dictionary<string, Animation>> animations;
+        // Idle animation
         readonly Animation idle;
 
+        // Current animation
         Animation currAnimation;
 
+        // Position
         readonly float[] posPointer;
 
+        // Wall collision
         readonly CollisionBox blocking;
 
+        // How big to draw
+        readonly Hitbox drawSize;
+
+        // Which direction facing (l/r)
         string facing;
 
+        // Behaviours
         readonly FollowBehaviour FOLLOW;
+
+        // Current effects
+        List<Particle> effects;
 
         // Whether to wait for hop to finish before resetting to idle animation
         bool goToIdle;
@@ -48,16 +63,17 @@ namespace ShootEmUp.Entities
             idle = GetAnimation("idle", "idle");
             currAnimation = idle;
 
-            blocking = CollisionBox.FromHitbox(new Hitbox(new float[] { -25, -25 }, posPointer, new float[] { 50, 50 }));
+            int size = 70;
+            blocking = CollisionBox.FromHitbox(new Hitbox(new float[] { -size / 2, -size / 2 }, posPointer, new float[] { size, size }));
 
-            int viewSize = 500; // 5 player hitboxes on either side
+            int viewSize = 900; // 5 player hitboxes on either side
             uint resetTarget = 30; // 0.5 seconds
             uint stopFollowing = 600; // 10 seconds
-            uint tooClose = 0; // Half the player's hit
+            uint tooClose = 10; // Half the player's hit
 
             FOLLOW = new FollowBehaviour(target, viewSize, this, resetTarget, stopFollowing, tooClose);
 
-            int[] movement = new int[] { 1, 2, 4, 2, 1, 0 };
+            int[] movement = new int[] { 1, 4, 7, 3, 1, 0 };
             int[] timing = new int[] { 4, 6, 12, 6, 4, 50 };
             movementTimings = new Timing<int>(timing, movement);
 
@@ -65,6 +81,11 @@ namespace ShootEmUp.Entities
 
             // Assume idle by default
             goToIdle = true;
+
+            drawSize = new Hitbox(new float[] { 0, 0 }, new float[] { 0, 0 }, new float[] { size, size });
+
+            // Initalize particle effects
+            effects = new List<Particle>();
         }
 
         public List<CollisionBox> GetCollisionHitboxes()
@@ -87,7 +108,7 @@ namespace ShootEmUp.Entities
             List<TextureDescription> td = new List<TextureDescription>();
             {
                 // Get texture from animation
-                int[] currAnimSize = currAnimation.GetSizeOfCurrentAnimation();
+                int[] currAnimSize = new int[] { (int)drawSize.size[0], (int)drawSize.size[1] };
                 Point pos = new Point(
                     (int)(blocking.pos[0] + blocking.offset[0] + (blocking.size[0] / 2) - (currAnimSize[0] / 2)),
                     (int)(blocking.pos[1] + blocking.offset[1] + blocking.size[1] - currAnimSize[1])
@@ -133,7 +154,11 @@ namespace ShootEmUp.Entities
 
                 // Loop movement
                 if (movementTimings.IsExpired())
+                {
+                    // Reset movement and animation
                     movementTimings.Reset();
+                    currAnimation.Reset();
+                }
 
                 int mag = movementTimings.GetCurrElement();
                 // Don't move if doesn't need to
@@ -143,14 +168,19 @@ namespace ShootEmUp.Entities
                 // Get direction
                 int[] sign = new int[] { InGame.GetSign(dV[0]), InGame.GetSign(dV[1]) };
 
-                // Cap the movement
-                dV = new float[] { InGame.GetAbsMin(dV[0], sign[0] * mag), InGame.GetAbsMin(dV[1], sign[1] * mag) };
+                // Normalize to direction
+                dV = InGame.NormalizeVector(dV);
+
+                // Set to movement speed (He got no chill)
+                dV[0] *= mag;
+                dV[1] *= mag;
 
                 // Face the right direction
                 // Face right direction
                 string nowFacing = facing;
                 SetFacing(sign);
-                // Update animation if changed
+
+                // Update animation if changed direction
                 if (nowFacing != facing)
                 {
                     // Get right animation and synchronize to current animation
@@ -164,8 +194,12 @@ namespace ShootEmUp.Entities
                 // If just started attacking
                 else if (FOLLOW.ChangedState())
                 {
+
                     // Reset current animation
                     currAnimation.Reset();
+
+                    // Reset movement as well
+                    movementTimings.Reset();
 
                     // Set to right animation
                     currAnimation = GetAnimation("attack", facing);
@@ -185,7 +219,7 @@ namespace ShootEmUp.Entities
                 // Update animation if changed state
                 if (FOLLOW.ChangedState())
                 {
-                    // Reset current animation and become idle
+                    // Reset current movement and become idle
                     movementTimings.Reset();
 
                     goToIdle = true;

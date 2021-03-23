@@ -67,33 +67,18 @@ namespace ShootEmUp.Entities
             // Assume not changed following state
             changedFollowing = false;
 
+            // Update cooldown for new target
             resetTarget.Update();
+            
+            // Attempt to find new target if none
+            if (currTarg == null)
+                ResetTarget();
 
-            // If has a target
-            if (currTarg != null)
-            {
-                // For each of the target's collision boxes
-                foreach (Hitbox hb in currTarg.GetCollisionHitboxes())
-                {
-                    // Check sight
-                    if (hb.Crosses(sight))
-                    {
-                        // Set the follow
-                        lastPointSeen = new float[] { hb.pos[0], hb.pos[1] };
+            // Set following if has a target
+            UpdateIfHasTarget();
 
-                        // Don't update
-                        return;
-                    }
-                }
-                // Cannot see the target
-                currTarg = null;
-
-                // Start the following cooldown
-                stopFollowing.Reset();
-            }
-
-            // Or if following behind
-            if (lastPointSeen != null)
+            // If following behind with no target
+            if (currTarg == null && lastPointSeen != null)
             {
                 // Update the cooldown to stop
                 stopFollowing.Update();
@@ -127,6 +112,40 @@ namespace ShootEmUp.Entities
                     lastPointSeen = null;
                 }
             }
+        }
+
+        // Update what last point seen is
+        void UpdateIfHasTarget()
+        {
+            // If has a target
+            if (currTarg != null)
+            {
+                // For each of the target's collision boxes
+                foreach (Hitbox hb in currTarg.GetCollisionHitboxes())
+                {
+                    // Set the follow to position
+                    lastPointSeen = new float[] { hb.pos[0], hb.pos[1] };
+
+                    // If in sights
+                    if (hb.Crosses(sight))
+                    {
+                        // Done updating
+                        return;
+                    }
+                }
+
+                // Cannot see the target
+                currTarg = null;
+
+                // Start the following cooldown
+                stopFollowing.Reset();
+            }
+
+        }
+
+        // Reevaluate trying to find a target
+        void ResetTarget()
+        {
 
             // If going to reset target
             if (resetTarget.CanUse())
@@ -140,9 +159,8 @@ namespace ShootEmUp.Entities
                 // If there is none
                 if (targetable.Count == 0)
                 {
-                    // Not following or chasing
+                    // Not chasing
                     currTarg = null;
-                    lastPointSeen = null;
                 }
                 else
                 {
