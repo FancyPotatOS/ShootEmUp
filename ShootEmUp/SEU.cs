@@ -206,27 +206,5 @@ namespace ShootEmUp
 
             base.Draw(gameTime);
         }
-
-        public static float[] NormalizeVector(float[] vec)
-        {
-            // Sum the square of each element
-            float sqSum = 0;
-            foreach (float element in vec)
-            {
-                sqSum += element * element;
-            }
-            // Square root to get distance
-            sqSum = (float)Math.Sqrt(sqSum);
-
-            // Divide all elements by distance
-            float[] newVector = new float[vec.Length];
-
-            for (int i = 0; i < vec.Length; i++)
-            {
-                newVector[i] = vec[i] / sqSum;
-            }
-
-            return newVector;
-        }
     }
 }

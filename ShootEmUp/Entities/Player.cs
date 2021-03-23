@@ -41,7 +41,6 @@ namespace ShootEmUp.Entities
         public int facingChange;
         bool running;
 
-        bool hasShot = false;
         readonly Cooldown shotCooldown;
 
         public Player(IController cont, float[] pos, Deck<TraditionalDeck> masterDeck)
@@ -51,7 +50,7 @@ namespace ShootEmUp.Entities
             controller = cont;
 
             attacking = new List<DamageBox>();
-            blocking = CollisionBox.FromHitbox(new Hitbox(new float[] { -25, -25 }, posPointer, new float[] { 50, 60 }));
+            blocking = CollisionBox.FromHitbox(new Hitbox(new float[] { -25, -30 }, posPointer, new float[] { 50, 60 }));
             vulnerable = new HurtBox(new float[] { -20, -20 }, posPointer, new float[] { 40, 40 });
             speed = new float[2];
 
@@ -152,29 +151,20 @@ namespace ShootEmUp.Entities
             // Update cooldown
             shotCooldown.Update();
             // No cooldown and shooting
-            if (shotCooldown.CanUse() && controller.IsPressed("shoot"))
+            if (shotCooldown.CanUse() && controller.IsNew("shoot"))
             {
-                if (!hasShot)
+                float[] facingVec = GetFacingVector();
+                if (!MasterDeck.IsEmpty())
                 {
-                    float[] facingVec = GetFacingVector();
-                    if (!MasterDeck.IsEmpty())
-                    {
-                        shotCooldown.Reset();
+                    shotCooldown.Reset();
 
-                        Card newCard = new Card(new float[] { facingVec[0] * mag, facingVec[1] * mag }, new float[] { posPointer[0], posPointer[1] }, facing.Substring(0, 1), MasterDeck.TakeFromTop());
+                    Card newCard = new Card(new float[] { facingVec[0] * mag, facingVec[1] * mag }, new float[] { posPointer[0], posPointer[1] }, facing.Substring(0, 1), MasterDeck.TakeFromTop());
 
-                        SEU.instance.GLOBALSTATE.AddEntity(newCard);
-                    }
+                    SEU.instance.GLOBALSTATE.AddEntity(newCard);
                 }
-
-                // Save as shooting
-                hasShot = true;
             }
-            else
-                // No longer pressing shoot button
-                hasShot = false;
 
-            if (controller.IsPressed("reset"))
+            if (controller.IsNew("reset"))
             {
                 if (SEU.instance.GLOBALSTATE is InGame ig)
                 {
@@ -218,11 +208,7 @@ namespace ShootEmUp.Entities
 
         public List<CollisionBox> GetCollisionHitboxes()
         {
-            List<CollisionBox> cbs = new List<CollisionBox>();
-            {
-                cbs.Add(blocking);
-            }
-            return cbs;
+            return new CollisionBox[] { blocking }.ToList();
         }
 
         public List<DamageBox> GetDamageBoxes()

@@ -26,7 +26,10 @@ namespace ShootEmUp.Entities
             Player.LoadAnimations(Content);
 
             Card.LoadAnimations(Content);
+
+            Blob.LoadAnimations(Content);
         }
+
         public static Dictionary<string, Dictionary<string, Animation>> LoadAnimations(ContentManager Content, string xmlpath)
         {
             // Dictionary by type

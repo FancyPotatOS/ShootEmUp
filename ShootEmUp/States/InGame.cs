@@ -64,6 +64,10 @@ namespace ShootEmUp.States
             this.pause = pause;
 
             map = new Map();
+
+            // Add new blob that targets player
+            Blob temp = new Blob(new float[] { 450, 450 }, "right", ent => ent.GetType().Equals(typeof(Player)));
+            entities.Add(temp);
         }
 
         public void Update()
@@ -318,6 +322,34 @@ namespace ShootEmUp.States
             }
 
             return liszt;
+        }
+
+        // Returns the smallest magnitude number
+        public static float GetAbsMin(float a, float b)
+        {
+            return (Math.Abs(a) < Math.Abs(b)) ? a : b;
+        }
+
+        public static float[] NormalizeVector(float[] vec)
+        {
+            // Sum the square of each element
+            float sqSum = 0;
+            foreach (float element in vec)
+            {
+                sqSum += element * element;
+            }
+            // Square root to get distance
+            sqSum = (float)Math.Sqrt(sqSum);
+
+            // Divide all elements by distance
+            float[] newVector = new float[vec.Length];
+
+            for (int i = 0; i < vec.Length; i++)
+            {
+                newVector[i] = vec[i] / sqSum;
+            }
+
+            return newVector;
         }
     }
 }

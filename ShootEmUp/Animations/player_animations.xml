@@ -141,7 +141,7 @@
 			<child>player/run_r_2</child>
 			<child>player/run_r_3</child>
 			<child>player/run_r_4</child>
-			<child>player/run_r_5</child>
+			<child>player/run_r_3</child>
 		</child>
 		<child name="upright">
 			<child>player/run_ur_1</child>

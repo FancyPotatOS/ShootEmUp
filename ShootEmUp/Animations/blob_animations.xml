@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<Animations>
+	<child name="idle">
+		<frames>
+			<child>50</child>
+			<child>6</child>
+			<child>13</child>
+			<child>6</child>
+		</frames>
+		<child name="idle">
+			<child>entity/blob/idle_1</child>
+			<child>entity/blob/idle_2</child>
+			<child>entity/blob/idle_3</child>
+			<child>entity/blob/idle_2</child>
+		</child>
+	</child>
+</Animations>

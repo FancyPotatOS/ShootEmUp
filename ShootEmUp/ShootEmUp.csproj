@@ -15,12 +15,16 @@
     <None Remove="Hitbox\**" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="Animations\blob_animations.xml" />
     <None Remove="Animations\card_animations.xml" />
     <None Remove="Animations\player_animations.xml" />
     <None Remove="Icon.ico" />
     <None Remove="Icon.bmp" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Animations\blob_animations.xml">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="Animations\card_animations.xml">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
