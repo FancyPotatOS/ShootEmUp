@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using ShootEmUp.Entities;
 using ShootEmUp.Hitboxes;
+using ShootEmUp.States;
 using ShootEmUp.TextureHandling;
 using System;
 using System.Collections.Generic;
@@ -58,8 +59,8 @@ namespace ShootEmUp
             lifetime.Update();
 
             // Apply velocity and acceleration
-            vel[0] -= GetSign(vel[0]) * decc[0];
-            vel[1] -= GetSign(vel[1]) * decc[1];
+            vel[0] -= InGame.GetSign(vel[0]) * decc[0];
+            vel[1] -= InGame.GetSign(vel[1]) * decc[1];
 
             /*  Attempt to move position    */
             // Assume no collision box, change by velocity
@@ -74,9 +75,9 @@ namespace ShootEmUp
             locPointer[1] += change[1];
 
             // If velocities are below threshold, then make 0
-            if (GetSign(vel[0]) * vel[0] < toZero)
+            if (InGame.GetSign(vel[0]) * vel[0] < toZero)
             { vel[0] = 0; }
-            if (GetSign(vel[1]) * vel[1] < toZero)
+            if (InGame.GetSign(vel[1]) * vel[1] < toZero)
             { vel[1] = 0; }
 
             // Update the textures
@@ -120,12 +121,6 @@ namespace ShootEmUp
         public void ChangeAnimations(List<Animation> newAnims)
         {
             animations = newAnims;
-        }
-
-        // Returns sign of the value
-        public int GetSign(float val)
-        {
-            return (val > 0) ? 1 : (val < 0) ? -1 : 0;
         }
     }
 }

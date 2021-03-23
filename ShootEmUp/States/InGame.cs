@@ -66,7 +66,7 @@ namespace ShootEmUp.States
             map = new Map();
 
             // Add new blob that targets player
-            Blob temp = new Blob(new float[] { 450, 450 }, "right", ent => ent.GetType().Equals(typeof(Player)));
+            Blob temp = new Blob(new float[] { 450, 450 }, "r", ent => ent.GetType().Equals(typeof(Player)), Color.PowderBlue);
             entities.Add(temp);
         }
 
@@ -350,6 +350,12 @@ namespace ShootEmUp.States
             }
 
             return newVector;
+        }
+
+        // Returns sign of the value
+        public static int GetSign(float val)
+        {
+            return (val > 0) ? 1 : (val < 0) ? -1 : 0;
         }
     }
 }

@@ -13,11 +13,15 @@ using System.Xml;
 using Microsoft.Xna.Framework.Content;
 using System.Text.RegularExpressions;
 using ShootEmUp.States;
+using ShootEmUp.Animations;
 
 namespace ShootEmUp.Entities
 {
-    public class Blob : IEntity
+    public class Blob : AttemptMove, IEntity
     {
+        Color color;
+
+        Timing<int> movementTimings;
 
         static Dictionary<string, Dictionary<string, Animation>> animations;
         readonly Animation idle;
@@ -32,7 +36,10 @@ namespace ShootEmUp.Entities
 
         readonly FollowBehaviour FOLLOW;
 
-        public Blob(float[] pos, string facing, Predicate<IEntity> target)
+        // Whether to wait for hop to finish before resetting to idle animation
+        bool goToIdle;
+
+        public Blob(float[] pos, string facing, Predicate<IEntity> target, Color c)
         {
             this.facing = facing;
             posPointer = pos;
@@ -43,12 +50,21 @@ namespace ShootEmUp.Entities
 
             blocking = CollisionBox.FromHitbox(new Hitbox(new float[] { -25, -25 }, posPointer, new float[] { 50, 50 }));
 
-            int viewSize = 600; // 6 player hitboxes on either side
-            uint resetTarget = 120; // 2 seconds
-            uint stopFollowing = 300; // 5 seconds
+            int viewSize = 500; // 5 player hitboxes on either side
+            uint resetTarget = 30; // 0.5 seconds
+            uint stopFollowing = 600; // 10 seconds
             uint tooClose = 0; // Half the player's hit
 
             FOLLOW = new FollowBehaviour(target, viewSize, this, resetTarget, stopFollowing, tooClose);
+
+            int[] movement = new int[] { 1, 2, 4, 2, 1, 0 };
+            int[] timing = new int[] { 4, 6, 12, 6, 4, 50 };
+            movementTimings = new Timing<int>(timing, movement);
+
+            color = c;
+
+            // Assume idle by default
+            goToIdle = true;
         }
 
         public List<CollisionBox> GetCollisionHitboxes()
@@ -78,7 +94,7 @@ namespace ShootEmUp.Entities
                 );
                 Point size = new Point((int)currAnimSize[0], (int)currAnimSize[1]);
                 Rectangle bound = new Rectangle(pos, size);
-                td.Add(new TextureDescription(currAnimation.GetTexture(), bound, Color.White, 10));
+                td.Add(new TextureDescription(currAnimation.GetTexture(), bound, color, 10));
             }
 
             return td;
@@ -89,7 +105,13 @@ namespace ShootEmUp.Entities
             // Loop animation
             currAnimation.Update();
             if (currAnimation.Expired())
+            {
                 currAnimation.Reset();
+
+                // Set as idle animation once finished if marked to 
+                if (goToIdle)
+                    currAnimation = idle;
+            }
 
             // Update behaviours
             FOLLOW.Update();
@@ -97,25 +119,79 @@ namespace ShootEmUp.Entities
             // If there is a target
             if (FOLLOW.HasCurrTarget())
             {
+                goToIdle = false;
+
                 // Get target position
                 float[] target = FOLLOW.GetTarget();
 
                 // Calculate necessary change
                 float[] dV = new float[] { target[0] - posPointer[0], target[1] - posPointer[1] };
 
-                // Movement logic
+                /*  Movement Logic  */
+                // Update the movement
+                movementTimings.Update();
+
+                // Loop movement
+                if (movementTimings.IsExpired())
+                    movementTimings.Reset();
+
+                int mag = movementTimings.GetCurrElement();
+                // Don't move if doesn't need to
+                if (mag == 0)
+                    return;
+
+                // Get direction
+                int[] sign = new int[] { InGame.GetSign(dV[0]), InGame.GetSign(dV[1]) };
+
+                // Cap the movement
+                dV = new float[] { InGame.GetAbsMin(dV[0], sign[0] * mag), InGame.GetAbsMin(dV[1], sign[1] * mag) };
+
+                // Face the right direction
+                // Face right direction
+                string nowFacing = facing;
+                SetFacing(sign);
+                // Update animation if changed
+                if (nowFacing != facing)
+                {
+                    // Get right animation and synchronize to current animation
+                    Animation newAnim = GetAnimation("attack", facing);
+                    currAnimation.Synchronize(newAnim);
+
+                    // Reset and swap
+                    currAnimation.Reset();
+                    currAnimation = newAnim;
+                }
+                // If just started attacking
+                else if (FOLLOW.ChangedState())
+                {
+                    // Reset current animation
+                    currAnimation.Reset();
+
+                    // Set to right animation
+                    currAnimation = GetAnimation("attack", facing);
+                }
+
+                // Get possible change
+                float[] change = AttemptToMove(blocking, dV);
+
+                // Apply change to position
+                posPointer[0] += change[0];
+                posPointer[1] += change[1];
             }
+            /**/
             // No target anymore
             else
             {
-                // If not idle animation
-                if (currAnimation != idle)
+                // Update animation if changed state
+                if (FOLLOW.ChangedState())
                 {
                     // Reset current animation and become idle
-                    currAnimation.Reset();
-                    currAnimation = idle;
+                    movementTimings.Reset();
+
+                    goToIdle = true;
                 }
             }
+            /**/
         }
 
         public static void LoadAnimations(ContentManager Content)
@@ -143,6 +219,16 @@ namespace ShootEmUp.Entities
             {
                 throw new Exception("'" + type + "' is not a valid animation!");
             }
+        }
+
+        public void SetFacing(int[] sign)
+        {
+            if (sign[0] < 0)
+            {
+                facing = "l";
+            }
+            else
+                facing = "r";
         }
     }
 }

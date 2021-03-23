@@ -28,8 +28,7 @@ namespace ShootEmUp.Entities
         readonly IEntity me;
         readonly float[] posPointer;
 
-        // Current target to walk towards
-        float[] currTarget;
+        bool changedFollowing;
 
         public FollowBehaviour(Predicate<IEntity> targ, int viewSize, IEntity me, uint resTarg, uint stpFollow, uint distIgnore)
         {
@@ -48,31 +47,32 @@ namespace ShootEmUp.Entities
             distanceIgnore = distIgnore;
 
             stopFollowing = new Cooldown(stpFollow, stpFollow);
+
+            changedFollowing = true;
         }
 
         public bool HasCurrTarget()
         {
-            return currTarget != null;
+            return lastPointSeen != null;
         }
 
         public float[] GetTarget()
         {
-            return new float[] { currTarget[0], currTarget[1] };
+            return new float[] { lastPointSeen[0], lastPointSeen[1] };
         }
 
         // Update given myself
         public void Update()
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.Y))
-            {
-                { }
-            }
+            // Assume not changed following state
+            changedFollowing = false;
 
             resetTarget.Update();
 
-            // If can still see the target
+            // If has a target
             if (currTarg != null)
             {
+                // For each of the target's collision boxes
                 foreach (Hitbox hb in currTarg.GetCollisionHitboxes())
                 {
                     // Check sight
@@ -81,20 +81,17 @@ namespace ShootEmUp.Entities
                         // Set the follow
                         lastPointSeen = new float[] { hb.pos[0], hb.pos[1] };
 
-                        // Target the last point seen
-                        currTarget = lastPointSeen;
-
                         // Don't update
                         return;
                     }
                 }
-
                 // Cannot see the target
                 currTarg = null;
 
                 // Start the following cooldown
                 stopFollowing.Reset();
             }
+
             // Or if following behind
             if (lastPointSeen != null)
             {
@@ -114,8 +111,7 @@ namespace ShootEmUp.Entities
                     {
                         lastPointSeen = null;
 
-                        // No target
-                        currTarget = null;
+                        changedFollowing = true;
                     }
                     // Otherwise just keep swimming
                     else
@@ -126,8 +122,7 @@ namespace ShootEmUp.Entities
                 // Otherwise just forget the point
                 else
                 {
-                    // No target
-                    currTarget = null;
+                    changedFollowing = true;
 
                     lastPointSeen = null;
                 }
@@ -164,12 +159,19 @@ namespace ShootEmUp.Entities
                                 lastPointSeen = new float[] { hb.pos[0], hb.pos[1] };
                                 currTarg = potTarg;
 
+                                changedFollowing = true;
+
                                 return;
                             }
                         }
                     }
                 }
             }
+        }
+
+        public bool ChangedState()
+        {
+            return changedFollowing;
         }
     }
 }
